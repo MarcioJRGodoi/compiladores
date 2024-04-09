@@ -11,15 +11,16 @@ public class Main {
     public static void main(String[] args) {
         String regexChar = Regex.REGEX_CHAR;
         Pattern pattern = Pattern.compile(regexChar);
+        String number = "123";
 
         // Cria um objeto Matcher para a string que você quer verificar
-        Matcher matcher = pattern.matcher("123");
+        Matcher matcher = pattern.matcher(number);
 
         // Verifica se a string corresponde à expressão regular
         boolean matches = matcher.matches();
 
         // Imprime o resultado
-        System.out.println("A string '123' corresponde à REGEX_INTEIRO? " + matches);
+        System.out.println("A string "+ number +" corresponde à regexChar? " + matches);
 
     }
 }
