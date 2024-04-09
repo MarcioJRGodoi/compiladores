@@ -16,5 +16,9 @@ public class AnalisadorLexico {
         Palavras = palavras;
     }
 
+    public int FazerAsParada(AnalisadorLexico anal){
+        return 1;
+    }
+
 
 }
