@@ -4,6 +4,9 @@ import enuns.CodigoToken;
 import lexico.AnalisadorLexico;
 import regerx.Regex;
 
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,16 +17,34 @@ public class Main {
     public static void main(String[] args) {
 
 
-        AnalisadorLexico a = new AnalisadorLexico(
-                new ArrayList<String>(),
-                new ArrayList<Integer>(),
-                "",
-                "void main {inicio ; fim }"
+        String main = "../codigosParaLer/Main.txt";
+        try {
+            FileInputStream stream = new FileInputStream("/home/marcio/Compiladores/texto");
+            InputStreamReader reader = new InputStreamReader(stream);
+            BufferedReader br = new BufferedReader(reader);
+            StringBuilder conteudo = new StringBuilder();
+            String linha = br.readLine();
+            while(linha != null) {
+                conteudo.append(linha).append("\n");
+                linha = br.readLine();
+            }
+            br.close();
 
-        );
-        a.FazerAsParada();
-        System.out.println(CodigoToken.values()[5].getToken());
-        System.out.println(CodigoToken.values()[5].getIndex());
+            AnalisadorLexico a = new AnalisadorLexico(
+                    new ArrayList<String>(),
+                    new ArrayList<Integer>(),
+                    "",
+                    conteudo.toString()
+            );
+            a.FazerAsParada();
+
+
+
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+        }
+
+        
 
     }
 }

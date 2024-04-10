@@ -63,4 +63,13 @@ public enum CodigoToken {
     public int getIndex() {
         return this.index;
     }
+
+    public static CodigoToken fromString(String token) {
+        for (CodigoToken codigoToken : CodigoToken.values()) {
+            if (codigoToken.token.equals(token)) {
+                return codigoToken;
+            }
+        }
+        return null;
+    }
 }
