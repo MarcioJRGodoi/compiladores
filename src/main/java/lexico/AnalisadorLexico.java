@@ -1,8 +1,10 @@
 package lexico;
 
 import enuns.CodigoToken;
+import regerx.Regex;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class AnalisadorLexico {
     private String Palavras;
@@ -18,7 +20,8 @@ public class AnalisadorLexico {
         this.Palavras = palavras;
     }
 
-    public void FazerAsParada(){
+    public void FazerAsParada() throws Exception {
+
         for (int i = 0; i < Palavras.length(); i++) {
             if (Palavras.charAt(i) == '{') {
                 Lexema = String.valueOf(Palavras.charAt(i));
@@ -28,10 +31,25 @@ public class AnalisadorLexico {
                 Lexema = "";
             }
 
-            System.out.println(Lexema); // Print opcional para ver o andamento
+            System.out.println(Lexema);
+
 
             CodigoToken codigoToken = CodigoToken.fromString(Lexema);
             if (codigoToken != null) {
+                boolean matched = false;
+
+                // Verifique cada expressão regular
+                for (Map.Entry<String, String> entry : Regex.REGEX_MAP.entrySet()) {
+                    if (Lexema.matches(entry.getValue())) {
+                        matched = true;
+                        System.out.println(matched);
+                        break;
+                    }
+                }
+                if(!matched){
+                    throw new Exception("Invalido!");
+                }
+
                 Tokens.add(codigoToken.getIndex());
                 Lexemas.add(Lexema);
                 Lexema = "";

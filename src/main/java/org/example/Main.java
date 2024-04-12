@@ -36,13 +36,12 @@ public class Main {
             );
             a.FazerAsParada();
 
-
-
         }catch (IOException e){
             System.out.println(e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
 
-        
 
     }
 }
