@@ -80,7 +80,6 @@ public class Main {
                 String subString = frase.substring(i, j);
                 CodigoToken codigoToken = buscarTokenPorString(subString);
                 if (codigoToken != null) {
-                    identificarComentarios(frase, tokens);
                     // Se a subString for um token, avança para o próximo caractere
                     tokens.add(
                             new TokenEncontrado(codigoToken.getCodigo(), subString, codigoToken.getTokenDescricao()));
@@ -118,7 +117,11 @@ public class Main {
         replaceFrase = identificarNumeroFloat(replaceFrase, tokensRestantes);
         replaceFrase = identificarNumeroInteiro(replaceFrase, tokensRestantes);
         replaceFrase = identificarDelimitadores(replaceFrase, tokensRestantes);
-        identificarDeclaracaoVariavel(replaceFrase, tokensRestantes);
+        replaceFrase = identificarOperadoreAritmetico(replaceFrase, tokensRestantes);
+        replaceFrase = identificarDeclaracaoVariavel(replaceFrase, tokensRestantes);
+        replaceFrase = identificarOperadoreDeComparacao(replaceFrase, tokensRestantes);
+        replaceFrase = identificarOutrosOperadores(replaceFrase, tokensRestantes);
+        replaceFrase = identificarComentarios(replaceFrase, tokensRestantes);
         return tokensRestantes;
     }
 
@@ -128,13 +131,14 @@ public class Main {
         for ( int i = 0; i < fraseTemp.length(); i++){
             String currentChar = String.valueOf(fraseTemp.charAt(i));
             if(Pattern.matches(REGEX_DELIMITADOR, currentChar)){
-                System.out.println("Caractere correspondente encontrado: " + currentChar);
+               CodigoToken token =  CodigoToken.BuscarTokenPorString(currentChar);
+                tokensRestantes.add(new TokenEncontrado(token.getCodigo(),token.getTokenString(), token.getTokenDescricao()));
+                fraseTemp = fraseTemp.replaceFirst(Pattern.quote(currentChar), "");
+                i--; // Decrementa o índice para compensar a remoção do caractere
             }
         }
 
-
-
-        return "";
+        return fraseTemp;
     }
 
     public static String identificarOperadoreAritmetico(String frase, ArrayList<TokenEncontrado> tokensRestantes){
@@ -142,12 +146,15 @@ public class Main {
 
         for ( int i = 0; i < fraseTemp.length(); i++){
             String currentChar = String.valueOf(fraseTemp.charAt(i));
-            if(Pattern.matches(REGEX_OPERADOR_ARITMETICO, currentChar)){
-                System.out.println("Caractere correspondente encontrado: " + currentChar);
+            if(Pattern.matches(REGEX_DELIMITADOR, currentChar)){
+                CodigoToken token =  CodigoToken.BuscarTokenPorString(currentChar);
+                tokensRestantes.add(new TokenEncontrado(token.getCodigo(),token.getTokenString(), token.getTokenDescricao()));
+                fraseTemp = fraseTemp.replaceFirst(Pattern.quote(currentChar), "");
+                i--; // Decrementa o índice para compensar a remoção do caractere
             }
         }
 
-        return "";
+        return fraseTemp;
     }
 
     public static String identificarOperadoreDeComparacao(String frase, ArrayList<TokenEncontrado> tokensRestantes){
@@ -157,10 +164,13 @@ public class Main {
         Matcher matcher = pattern.matcher(fraseTemp);
 
         while (matcher.find()) {
+            CodigoToken token =  CodigoToken.BuscarTokenPorString(matcher.group());
+            tokensRestantes.add(new TokenEncontrado(token.getCodigo(),token.getTokenString(), token.getTokenDescricao()));
+            fraseTemp = fraseTemp.replaceFirst(Pattern.quote(matcher.group()), "");
             System.out.println("Operador de comparação encontrado: " + matcher.group());
         }
 
-        return "";
+        return fraseTemp;
     }
 
     public static String identificarOutrosOperadores(String frase, ArrayList<TokenEncontrado> tokensRestantes) {
@@ -170,10 +180,20 @@ public class Main {
         Matcher matcher = pattern.matcher(fraseTemp);
 
         while (matcher.find()) {
-            System.out.println("Outros Operadores encontrado: " + matcher.group());
+            String group = matcher.group();
+            for (int i = 0; i < group.length(); i++) {
+                String currentChar = String.valueOf(group.charAt(i));
+                CodigoToken token = CodigoToken.BuscarTokenPorString(currentChar);
+                if(token == null){
+                    break;
+                }
+                tokensRestantes.add(new TokenEncontrado(token.getCodigo(),token.getTokenString(), token.getTokenDescricao()));
+                fraseTemp = fraseTemp.replaceFirst(Pattern.quote(currentChar), "");
+            }
+            System.out.println("Outros Operadores encontrado: " + group);
         }
 
-        return "";
+        return fraseTemp;
     }
 
     public static String identificarComentarios(String frase, ArrayList<TokenEncontrado> tokensRestantes) {
@@ -183,10 +203,20 @@ public class Main {
         Matcher matcher = pattern.matcher(fraseTemp);
 
         while (matcher.find()) {
-            System.out.println("Outros Operadores encontrado: " + matcher.group());
+            String group = matcher.group();
+            for (int i = 0; i < group.length(); i++) {
+                String currentChar = String.valueOf(group.charAt(i));
+                CodigoToken token = CodigoToken.BuscarTokenPorString(currentChar);
+                if(token == null){
+                    break;
+                }
+                tokensRestantes.add(new TokenEncontrado(token.getCodigo(),token.getTokenString(), token.getTokenDescricao()));
+                fraseTemp = fraseTemp.replaceFirst(Pattern.quote(currentChar), "");
+            }
+            System.out.println("Comentarios encontrado: " + group);
         }
 
-        return "";
+        return fraseTemp;
     }
 
         public static String identificarNumeroInteiro(String frase, ArrayList<TokenEncontrado> tokensRestantes) {
