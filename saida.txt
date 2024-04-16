@@ -1,0 +1,17 @@
+Tokens encontrados:
+Token: ( 2 - VOID ) Palavra: void
+Token: ( 11 - MAIN ) Palavra: main
+Token: ( 37 - ABRE_CHAVES ) Palavra: {
+Token: ( 14 - INICIO ) Palavra: inicio
+Token: ( 38 - PONTO_VIRGULA ) Palavra: ;
+Token: ( 39 - DOIS_PONTOS ) Palavra: :
+Token: ( 19 - FIM ) Palavra: fim
+Token: ( 36 - FECHA_CHAVES ) Palavra: }
+Token: ( 46 - DIFERENTE ) Palavra: !=
+Token: ( 40 - DIVISÃO ) Palavra: /
+Token: ( 40 - DIVISÃO ) Palavra: /
+Token: ( 40 - DIVISÃO ) Palavra: /
+Token: ( 42 - MULTIPLICAÇÃO ) Palavra: *
+Token: ( 42 - MULTIPLICAÇÃO ) Palavra: *
+Token: ( 40 - DIVISÃO ) Palavra: /
+Token: ( 5 - NUMERO_INTEIRO ) Palavra: 2

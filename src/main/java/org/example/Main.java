@@ -8,7 +8,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import enuns.CodigoToken;
+
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static regerx.Regex.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -76,6 +80,7 @@ public class Main {
                 String subString = frase.substring(i, j);
                 CodigoToken codigoToken = buscarTokenPorString(subString);
                 if (codigoToken != null) {
+                    identificarComentarios(frase, tokens);
                     // Se a subString for um token, avança para o próximo caractere
                     tokens.add(
                             new TokenEncontrado(codigoToken.getCodigo(), subString, codigoToken.getTokenDescricao()));
@@ -112,11 +117,79 @@ public class Main {
         replaceFrase = identificarLiteral(replaceFrase, tokensRestantes);
         replaceFrase = identificarNumeroFloat(replaceFrase, tokensRestantes);
         replaceFrase = identificarNumeroInteiro(replaceFrase, tokensRestantes);
+        replaceFrase = identificarDelimitadores(replaceFrase, tokensRestantes);
         identificarDeclaracaoVariavel(replaceFrase, tokensRestantes);
         return tokensRestantes;
     }
 
-    public static String identificarNumeroInteiro(String frase, ArrayList<TokenEncontrado> tokensRestantes) {
+    public static String identificarDelimitadores(String frase, ArrayList<TokenEncontrado> tokensRestantes){
+        String fraseTemp = frase;
+
+        for ( int i = 0; i < fraseTemp.length(); i++){
+            String currentChar = String.valueOf(fraseTemp.charAt(i));
+            if(Pattern.matches(REGEX_DELIMITADOR, currentChar)){
+                System.out.println("Caractere correspondente encontrado: " + currentChar);
+            }
+        }
+
+
+
+        return "";
+    }
+
+    public static String identificarOperadoreAritmetico(String frase, ArrayList<TokenEncontrado> tokensRestantes){
+        String fraseTemp = frase;
+
+        for ( int i = 0; i < fraseTemp.length(); i++){
+            String currentChar = String.valueOf(fraseTemp.charAt(i));
+            if(Pattern.matches(REGEX_OPERADOR_ARITMETICO, currentChar)){
+                System.out.println("Caractere correspondente encontrado: " + currentChar);
+            }
+        }
+
+        return "";
+    }
+
+    public static String identificarOperadoreDeComparacao(String frase, ArrayList<TokenEncontrado> tokensRestantes){
+        String fraseTemp = frase;
+
+        Pattern pattern = Pattern.compile(REGEX_OPERADOR_COMPARACAO);
+        Matcher matcher = pattern.matcher(fraseTemp);
+
+        while (matcher.find()) {
+            System.out.println("Operador de comparação encontrado: " + matcher.group());
+        }
+
+        return "";
+    }
+
+    public static String identificarOutrosOperadores(String frase, ArrayList<TokenEncontrado> tokensRestantes) {
+        String fraseTemp = frase;
+
+        Pattern pattern = Pattern.compile(REGEX_OPERADOR_OUTRO);
+        Matcher matcher = pattern.matcher(fraseTemp);
+
+        while (matcher.find()) {
+            System.out.println("Outros Operadores encontrado: " + matcher.group());
+        }
+
+        return "";
+    }
+
+    public static String identificarComentarios(String frase, ArrayList<TokenEncontrado> tokensRestantes) {
+        String fraseTemp = frase;
+
+        Pattern pattern = Pattern.compile(REGEX_COMENTARIO);
+        Matcher matcher = pattern.matcher(fraseTemp);
+
+        while (matcher.find()) {
+            System.out.println("Outros Operadores encontrado: " + matcher.group());
+        }
+
+        return "";
+    }
+
+        public static String identificarNumeroInteiro(String frase, ArrayList<TokenEncontrado> tokensRestantes) {
         String fraseTemp = frase;
         StringBuilder numeroAtual = new StringBuilder();
         for (int i = 0; i < fraseTemp.length(); i++) {
