@@ -12,7 +12,7 @@ public class Regex {
         put("REGEX_REAL", "^(0|[1-9][0-9]{0,5})(\\.[0-9]{1,3})?$");
         put("REGEX_CHAR", "^[a-zA-Z0-9]$");
         put("REGEX_STRING", "^[a-zA-Z0-9]*$");
-        put("REGEX_COMENTARIO", "^//.*|/\\*.*\\*/$");
+        put("REGEX_COMENTARIO", "(^//[^/]*$)|(^/\\*[^/]*\\*/$)");
         put("REGEX_VARIAVEL", "^[a-zA-Z]{1,15}$");
         put("REGEX_LITERAL", "^\".*\"$");
         put("REGEX_PALAVRA_CHAVE", "^(void|main|integer|float|string|char|if|else|while|for|return|cin|cout|begin|end|callfuncao)$");

@@ -1,1 +1,3 @@
-void main {inicio ; :fim } !=2 // /* */
+void main {inicio ; :fim } !=2 'dddddddd   dddd ' // /* */ d / asdad
+
+/**/

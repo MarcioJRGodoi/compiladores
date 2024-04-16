@@ -77,17 +77,18 @@ public class Main {
     // Função para encontrar os tokens na string
     public static ArrayList<TokenEncontrado> encontrarTokens(String frase) {
         ArrayList<TokenEncontrado> tokens = new ArrayList<>();
+        String frase2 = identificarComentarios(frase, tokens);
         int i = 0;
-        while (i < frase.length()) {
-            int j = frase.length();
+        while (i < frase2.length()) {
+            int j = frase2.length();
             while (j > i) {
-                String subString = frase.substring(i, j);
+                String subString = frase2.substring(i, j);
                 CodigoToken codigoToken = buscarTokenPorString(subString);
                 if (codigoToken != null) {
                     // Se a subString for um token, avança para o próximo caractere
                     tokens.add(
                             new TokenEncontrado(codigoToken.getCodigo(), subString, codigoToken.getTokenDescricao()));
-                    frase = frase.substring(0, i) + frase.substring(j);
+                    frase2 = frase2.substring(0, i) + frase2.substring(j);
                     i--;
                     break;
                 }
@@ -96,7 +97,7 @@ public class Main {
             i++;
         }
         // Processar o restante da string após a identificação dos tokens
-        ArrayList<TokenEncontrado> tokensRestantes = processarRestante(frase);
+        ArrayList<TokenEncontrado> tokensRestantes = processarRestante(frase2);
         tokens.addAll(tokensRestantes);
         return tokens;
     }
@@ -192,8 +193,9 @@ public class Main {
                     break;
                 }
                 tokensRestantes.add(new TokenEncontrado(token.getCodigo(),token.getTokenString(), token.getTokenDescricao()));
-                fraseTemp = fraseTemp.replaceFirst(Pattern.quote(currentChar), "");
+                removerNumeroDaFrase(fraseTemp,Pattern.quote(currentChar));
             }
+
             System.out.println("Outros Operadores encontrado: " + group);
         }
 
@@ -208,16 +210,22 @@ public class Main {
 
         while (matcher.find()) {
             String group = matcher.group();
+            group = group.replaceAll("\\s", "");
+            StringBuilder sb = new StringBuilder();
             for (int i = 0; i < group.length(); i++) {
-                String currentChar = String.valueOf(group.charAt(i));
-                CodigoToken token = CodigoToken.BuscarTokenPorString(currentChar);
-                if(token == null){
-                    break;
+                sb.append(group.charAt(i)); // Adiciona o caractere ao StringBuilder
+                if (sb.length() >= 2) { // Verifica se o StringBuilder tem pelo menos dois caracteres
+                    CodigoToken token = CodigoToken.BuscarTokenPorString(sb.toString());
+                    if(token != null){
+                        tokensRestantes.add(new TokenEncontrado(token.getCodigo(),"'" + matcher.group() + "'", token.getTokenDescricao()));
+                        removerNumeroDaFrase(fraseTemp,matcher.group());
+                        sb.setLength(0); // Limpa o StringBuilder quando um token é encontrado
+                    }
                 }
-                tokensRestantes.add(new TokenEncontrado(token.getCodigo(),token.getTokenString(), token.getTokenDescricao()));
-                fraseTemp = fraseTemp.replaceFirst(Pattern.quote(currentChar), "");
             }
-            System.out.println("Comentarios encontrado: " + group);
+
+            fraseTemp = fraseTemp.replaceFirst(Pattern.quote(matcher.group()), "");
+            System.out.println("Comentarios encontrado: " + matcher.group());
         }
 
         return fraseTemp;

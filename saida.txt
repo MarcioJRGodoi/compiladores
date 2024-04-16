@@ -1,41 +1,14 @@
 Tokens encontrados:
-Token: ( 40 - DIVISÃO ) Palavra: /
-Token: ( 40 - DIVISÃO ) Palavra: /
+Token: ( 47 - COMENTARIO_DE_LINHA ) Palavra: '// /* */ d / asdad  /**/ '
+Token: ( 48 - COMENTARIO_DE_BLOCO ) Palavra: '// /* */ d / asdad  /**/ '
 Token: ( 2 - VOID ) Palavra: void
-Token: ( 40 - DIVISÃO ) Palavra: /
-Token: ( 40 - DIVISÃO ) Palavra: /
 Token: ( 11 - MAIN ) Palavra: main
-Token: ( 40 - DIVISÃO ) Palavra: /
-Token: ( 40 - DIVISÃO ) Palavra: /
 Token: ( 37 - ABRE_CHAVES ) Palavra: {
-Token: ( 40 - DIVISÃO ) Palavra: /
-Token: ( 40 - DIVISÃO ) Palavra: /
 Token: ( 14 - INICIO ) Palavra: inicio
-Token: ( 40 - DIVISÃO ) Palavra: /
-Token: ( 40 - DIVISÃO ) Palavra: /
 Token: ( 38 - PONTO_VIRGULA ) Palavra: ;
-Token: ( 40 - DIVISÃO ) Palavra: /
-Token: ( 40 - DIVISÃO ) Palavra: /
 Token: ( 39 - DOIS_PONTOS ) Palavra: :
-Token: ( 40 - DIVISÃO ) Palavra: /
-Token: ( 40 - DIVISÃO ) Palavra: /
 Token: ( 19 - FIM ) Palavra: fim
-Token: ( 40 - DIVISÃO ) Palavra: /
-Token: ( 40 - DIVISÃO ) Palavra: /
 Token: ( 36 - FECHA_CHAVES ) Palavra: }
-Token: ( 40 - DIVISÃO ) Palavra: /
-Token: ( 40 - DIVISÃO ) Palavra: /
 Token: ( 46 - DIFERENTE ) Palavra: !=
-Token: ( 40 - DIVISÃO ) Palavra: /
-Token: ( 40 - DIVISÃO ) Palavra: /
-Token: ( 40 - DIVISÃO ) Palavra: /
-Token: ( 40 - DIVISÃO ) Palavra: /
-Token: ( 42 - MULTIPLICAÇÃO ) Palavra: *
-Token: ( 40 - DIVISÃO ) Palavra: /
-Token: ( 40 - DIVISÃO ) Palavra: /
-Token: ( 42 - MULTIPLICAÇÃO ) Palavra: *
-Token: ( 40 - DIVISÃO ) Palavra: /
-Token: ( 42 - MULTIPLICAÇÃO ) Palavra: *
-Token: ( 42 - MULTIPLICAÇÃO ) Palavra: *
-Token: ( 40 - DIVISÃO ) Palavra: /
+Token: ( 10 - NOME_STRING ) Palavra: 'dddddddd   dddd '
 Token: ( 5 - NUMERO_INTEIRO ) Palavra: 2

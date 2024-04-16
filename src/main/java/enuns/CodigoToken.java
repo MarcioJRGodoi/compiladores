@@ -48,7 +48,11 @@ public enum CodigoToken {
     DOLLAR(45, "$", "DOLLAR"),
     DIFERENTE(46, "!=", "DIFERENTE"),
     DECREMENTO(47, "--", "DECREMENTO"),
-    SUBTRACAO(48, "-", "SUBTRAÇÃO");
+    SUBTRACAO(48, "-", "SUBTRAÇÃO"),
+    COMENTARIO(47, "//", "COMENTARIO_DE_LINHA"),
+    COMENTARIOBLOCO(48, "/**/", "COMENTARIO_DE_BLOCO");
+
+
 
     private final int codigo;
     private final String tokenString;
