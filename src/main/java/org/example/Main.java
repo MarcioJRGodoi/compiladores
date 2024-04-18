@@ -20,11 +20,13 @@ import static regerx.Regex.*;
 
 public class Main {
     public static void main(String[] args) {
+
+        ArrayList<TokenEncontrado> tokens = new ArrayList<TokenEncontrado>();
         String caminhoArquivoEntrada = selecionarArquivo();
         if (caminhoArquivoEntrada != null) {
-            String frase = lerArquivo(caminhoArquivoEntrada);
+            String frase = lerArquivo(caminhoArquivoEntrada, tokens);
             if (frase != null) {
-                ArrayList<TokenEncontrado> tokens = encontrarTokens(frase.toLowerCase());
+                encontrarTokens(frase, tokens);
                 String caminhoArquivoSaida = obterCaminhoSaida(caminhoArquivoEntrada);
                 escreverArquivo(caminhoArquivoSaida, tokens);
             } else {
@@ -60,12 +62,13 @@ public class Main {
         return null;
     }
 
-    public static String lerArquivo(String caminhoArquivo) {
+    public static String lerArquivo(String caminhoArquivo, ArrayList<TokenEncontrado> tokens) {
         StringBuilder conteudo = new StringBuilder();
         try (BufferedReader br = new BufferedReader(new FileReader(caminhoArquivo))) {
             String linha;
             while ((linha = br.readLine()) != null) {
-                conteudo.append(linha).append(" "); // Adiciona um espaço no lugar do line break
+                String frase2 = identificarComentarios(linha, tokens);
+                conteudo.append(frase2).append(" "); // Adiciona um espaço no lugar do line break
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -75,8 +78,7 @@ public class Main {
     }
 
     // Função para encontrar os tokens na string
-    public static ArrayList<TokenEncontrado> encontrarTokens(String frase) {
-        ArrayList<TokenEncontrado> tokens = new ArrayList<>();
+    public static void encontrarTokens(String frase, ArrayList<TokenEncontrado> tokens) {
         String frase2 = identificarComentarios(frase, tokens);
         int i = 0;
         while (i < frase2.length()) {
@@ -99,7 +101,6 @@ public class Main {
         // Processar o restante da string após a identificação dos tokens
         ArrayList<TokenEncontrado> tokensRestantes = processarRestante(frase2);
         tokens.addAll(tokensRestantes);
-        return tokens;
     }
 
     // Função para buscar o token correspondente a uma string
@@ -126,7 +127,6 @@ public class Main {
         replaceFrase = identificarDeclaracaoVariavel(replaceFrase, tokensRestantes);
         replaceFrase = identificarOperadoreDeComparacao(replaceFrase, tokensRestantes);
         replaceFrase = identificarOutrosOperadores(replaceFrase, tokensRestantes);
-        replaceFrase = identificarComentarios(replaceFrase, tokensRestantes);
         return tokensRestantes;
     }
 
