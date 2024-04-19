@@ -212,14 +212,39 @@ public class Main {
             String group = matcher.group();
             group = group.replaceAll("\\s", "");
             StringBuilder sb = new StringBuilder();
+            boolean isComment = false;
             for (int i = 0; i < group.length(); i++) {
                 sb.append(group.charAt(i)); // Adiciona o caractere ao StringBuilder
                 if (sb.length() >= 2) { // Verifica se o StringBuilder tem pelo menos dois caracteres
-                    CodigoToken token = CodigoToken.BuscarTokenPorString(sb.toString());
-                    if(token != null){
-                        tokensRestantes.add(new TokenEncontrado(token.getCodigo(),"'" + matcher.group() + "'", token.getTokenDescricao()));
-                        removerNumeroDaFrase(fraseTemp,matcher.group());
-                        sb.setLength(0); // Limpa o StringBuilder quando um token é encontrado
+                    String sbStr = sb.toString();
+                    if(sbStr.equals("/*")){
+                        isComment = true;
+                    }
+                    if(!isComment){
+                        CodigoToken token = CodigoToken.BuscarTokenPorString(sbStr);
+                        if(token != null){
+                            tokensRestantes.add(new TokenEncontrado(token.getCodigo(),"'" + matcher.group() + "'", token.getTokenDescricao()));
+                            removerNumeroDaFrase(fraseTemp,matcher.group());
+                            sb.setLength(0); // Limpa o StringBuilder quando um token é encontrado
+
+                            // Adiciona o código para percorrer até o final da linha e apagar o restante dos caracteres
+                            int index = i + 1;
+                            while(index < group.length()){
+                                group = group.substring(0, index);
+                                index++;
+                            }
+                            break; // Sai do loop for
+                        }
+                    }
+                    if(isComment){
+                        String tokenStr = sbStr.substring(0, 2) + sbStr.substring(sbStr.length() - 2);
+                        CodigoToken token = CodigoToken.BuscarTokenPorString(tokenStr);
+                        if(token != null && !sbStr.equals("/*/")){
+                            tokensRestantes.add(new TokenEncontrado(token.getCodigo(),"'" + matcher.group() + "'", token.getTokenDescricao()));
+                            removerNumeroDaFrase(fraseTemp,matcher.group());
+                            isComment = false;
+                            sb.setLength(0); // Limpa o StringBuilder quando o fim do comentário é encontrado
+                        }
                     }
                 }
             }
