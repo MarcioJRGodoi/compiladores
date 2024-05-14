@@ -48,9 +48,7 @@ public enum CodigoToken {
     DOLLAR(45, "$", "DOLLAR"),
     DIFERENTE(46, "!=", "DIFERENTE"),
     DECREMENTO(47, "--", "DECREMENTO"),
-    SUBTRACAO(48, "-", "SUBTRAÇÃO"),
-    COMENTARIO(48, "//", "COMENTARIO_DE_LINHA"),
-    COMENTARIOBLOCO(49, "/**/", "COMENTARIO_DE_BLOCO");
+    SUBTRACAO(48, "-", "SUBTRAÇÃO");
 
 
 
