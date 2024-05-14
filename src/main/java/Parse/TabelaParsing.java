@@ -1,8 +1,5 @@
 package Parse;
 
-import enuns.CodigoToken;
-import enuns.NaoTerminais;
-
 import java.util.HashMap;
 
 

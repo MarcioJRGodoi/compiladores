@@ -3,8 +3,6 @@ package regerx;
 import java.util.HashMap;
 import java.util.Map;
 
-import static javax.swing.UIManager.put;
-
 public class Regex {
 
     public static final Map<String, String> REGEX_MAP = new HashMap<String, String>() {{
