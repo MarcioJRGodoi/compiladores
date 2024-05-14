@@ -1,0 +1,13 @@
+void main {
+  teste: integer;
+  teste2: float;
+  teste3: string;
+  teste4: char;
+  inicio
+  teste = 10 + 345554;
+  teste2 = teste3;
+  teste4 = 'a;
+  cin >> teste;
+  cout << "Hello, world!" << teste << teste2;
+  fim
+}
