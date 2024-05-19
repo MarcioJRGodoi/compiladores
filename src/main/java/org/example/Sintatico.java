@@ -52,7 +52,7 @@ public class Sintatico {
                 } else {
                     int producao = tabelaParser.getRegra(valorPilha, valorTerminal);
                     if (producao != -1) {
-                        System.out.println("producao: " + producao);
+                        System.out.println("producao: " + producao + 1);
                         pilha.pop();
                         HashMap<Integer, Integer> linhaBloco = tabelaProd.tabProd.get(producao);
                         if (linhaBloco != null) {
