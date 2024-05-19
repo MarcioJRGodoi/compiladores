@@ -2,10 +2,8 @@ package Parse;
 
 import java.util.HashMap;
 
-import javax.swing.ComboBoxEditor;
-
 public class TabelaProd {
-    HashMap<Integer, HashMap<Integer, Integer>> tabProd;
+    public HashMap<Integer, HashMap<Integer, Integer>> tabProd;
 
     static int var_while = 1;
     static int var_void = 2;
@@ -494,6 +492,8 @@ public class TabelaProd {
         adicionarRegra(86, 1, EXPRESSAO);
         adicionarRegra(86, 2, var_fechaparenteses);
     }
+
+    
 
     public void adicionarRegra(int linha, int coluna, int regra) {
         if (!tabProd.containsKey(linha)) {
