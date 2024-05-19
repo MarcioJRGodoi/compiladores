@@ -68,7 +68,7 @@ public class LexemaValidar {
             if (valor < 0) {
                 System.out.println("Erro léxico: Inteiro está negativo na linha " + numeroLinha + ".");    
             } else if (valor > 500000) {
-                System.out.println("Erro léxico: Inteiro ultrapassou o valor de 500000 " + numeroLinha + ".");   
+                System.out.println("Erro léxico: Inteiro ultrapassou o valor de 500000 na linha " + numeroLinha + ".");   
             } else {
                 return arrayTokens.indexOf("numerointeiro") + 1;
             }
@@ -80,7 +80,7 @@ public class LexemaValidar {
     }
 
     public static boolean verificarFloat(String lexema) {
-        Pattern pattern = Pattern.compile("^[-+]?\\d+\\.\\d{2}$");
+        Pattern pattern = Pattern.compile("^[-+]?\\d+\\.\\d+$");
         Matcher matcher = pattern.matcher(lexema);
         return matcher.matches();
     }
@@ -91,11 +91,11 @@ public class LexemaValidar {
             if (valor < 0) {
                 System.out.println("Erro léxico: Float está negativo na linha " + numeroLinha + ".");    
             } else if (valor > 500000) {
-                System.out.println("Erro léxico: Float ultrapassou o valor de 500000 " + numeroLinha + ".");   
+                System.out.println("Erro léxico: Float ultrapassou o valor de 500000 na linha " + numeroLinha + ".");   
             } else if (lexema.chars().filter(ch -> ch == '.').count() != 1 ) {
                 System.out.println("Erro léxico: Float está inválido na linha " + numeroLinha + ".");  
-            } else if (lexema.split("\\.")[1].length() != 2) {
-                System.out.println("Erro léxico: Float está inválido na linha " + numeroLinha + ".");  
+            } else if (lexema.split("\\.")[1].length() > 3) {
+                System.out.println("Erro léxico: Float está inválido na linha " + numeroLinha + ", pois possui mais de 3 digitos após o ponto.");  
             } else {
                 return arrayTokens.indexOf("numerofloat") + 1;
             }

@@ -37,4 +37,8 @@ public class LexemaUtil {
         
         return 0;
     }
+
+    public static void erroLexicaSemToken() {
+        System.out.println("Não foi possível encontrar e gerar os tokens para iniciar o processo de Análise Sintática.");   
+    }
 }

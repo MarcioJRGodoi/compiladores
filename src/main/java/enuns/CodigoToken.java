@@ -32,7 +32,7 @@ public enum CodigoToken {
     IGUAL(29, "==", "IGUAL"),
     ATRIBUICAO(30, "=", "ATRIBUIÇÃO"),
     MENOR_IGUAL(31, "<=", "MENOR_IGUAL"),
-    SHIFT_LEFT(32, "<<", "MENOR_MENOR"),
+    MENOR_MENOR(32, "<<", "MENOR_MENOR"),
     MENOR(33, "<", "MENOR"),
     INCREMENTO(34, "++", "MAIS_MAIS"),
     ADICAO(35, "+", "MAIS"),
