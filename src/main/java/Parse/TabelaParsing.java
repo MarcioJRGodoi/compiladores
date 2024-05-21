@@ -22,7 +22,7 @@ public class TabelaParsing {
 
         adicionarRegra(NaoTerminais.REPIDENT.getCodigo(), CodigoToken.I.getCodigo(), 3);  // REPIDENT, NomeVariavel -> 41
         //adicionarRegra(NaoTerminais.REPIDENT.getCodigo(), CodigoToken.NUMERO_INTEIRO.getCodigo(), 38);  // REPIDENT, Numerointeiro -> 38
-        //adicionarRegra(NaoTerminais.REPIDENT.getCodigo(), CodigoToken.NUMERO_FLOAT.getCodigo(), 39);  // REPIDENT, Numerofloat -> 39
+        adicionarRegra(NaoTerminais.REPIDENT.getCodigo(), CodigoToken.VIRGULA.getCodigo(), 4);  // REPIDENT, Numerofloat -> 39
 
         adicionarRegra(NaoTerminais.TIPO.getCodigo(), CodigoToken.INTEGER.getCodigo(), 5);  // TIPO, Integer -> 13
         adicionarRegra(NaoTerminais.TIPO.getCodigo(), CodigoToken.CHAR.getCodigo(), 8);  // TIPO, Char -> 24

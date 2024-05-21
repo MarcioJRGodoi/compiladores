@@ -32,7 +32,7 @@ public class Sintatico {
                 valorPilha = pilha.peek();
             } else {
                 if (valorPilha <= SIFRAO) { // topo da pilha é um terminal
-                    if (valorPilha == valorTerminal) { // deu match
+                    if (valorPilha == valorTerminal) {          // deu match
                         pilha.pop();
 
                         if (!tokens.isEmpty() && tokens.size() > 1) {
