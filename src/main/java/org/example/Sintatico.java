@@ -31,8 +31,6 @@ public class Sintatico {
             System.out.println("Valor atual da Pilha: " + valorPilha);
             System.out.println("Token atual: " + valorTerminal);
             System.out.println("Pilha Restante: " + pilha);
-            System.out.println("------------------------------------");
-            System.out.println("\n");
 
             if (valorPilha == NULO) {
                 pilha.pop();
@@ -59,7 +57,7 @@ public class Sintatico {
                 } else {
                     int producao = tabelaParser.getRegra(valorPilha, valorTerminal);
                     if (producao != -1) {
-                        System.out.println("producao: " + producao);
+                        System.out.println("Produção encontrada: " + producao);
                         pilha.pop();
                         HashMap<Integer, Integer> linhaBloco = tabelaProd.tabProd.get(producao);
                         if (linhaBloco != null) {
@@ -83,6 +81,9 @@ public class Sintatico {
                     }
                 }
             }
+
+            System.out.println("------------------------------------");
+            System.out.println("\n");
         }
 
         contagem++;
