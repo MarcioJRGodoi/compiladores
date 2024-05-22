@@ -1,0 +1,27 @@
+void main {
+    teste1 : integer;
+    teste2, teste12 : float;
+    teste3 : char;
+    teste4 : string;
+
+    inicio
+    teste1 = 12;
+    teste2 = 44.43;
+    teste12 = teste2 + teste1;
+    if (teste1 == 55) {
+        teste1 = 54;
+    };
+    while (teste1 == 22) {
+        teste1 = 23;
+    };
+    for (teste1 = 23; teste1 < 99; ++1) {
+        teste1 = 23;
+    };
+    do {
+        teste1 = 12;
+    } while (teste1 > 32);
+    cin >> teste1;
+    cout << "literal" << teste1;
+    callfuncao func(23);
+    fim
+}

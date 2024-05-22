@@ -1,0 +1,11 @@
+void main {
+    nomevariavel : integer;
+
+    inicio
+    nomevariavel = numerointeiro;
+    if (nomevariavel == numerointeiro) {
+        nomevariavel = numerointeiro;
+    };
+    cout << "literal" << nomevariavel;
+    fim
+}

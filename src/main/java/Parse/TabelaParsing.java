@@ -71,6 +71,8 @@ public class TabelaParsing {
         adicionarRegra(NaoTerminais.LPARAM.getCodigo(), CodigoToken.PONTO_VIRGULA.getCodigo(), 29);  // LPARAM, 38 -> 38
 
         adicionarRegra(NaoTerminais.CORPO.getCodigo(), CodigoToken.INICIO.getCodigo(), 30);  // CORPO, If -> NaoTerminais.COMANDO.getCodigo()
+        
+        adicionarRegra(NaoTerminais.PARAMETROS.getCodigo(), CodigoToken.ABRE_PARENTESES.getCodigo(), 39);
 
         adicionarRegra(NaoTerminais.REPCOMANDO.getCodigo(), CodigoToken.NOME_VARIAVEL.getCodigo(), 32);  // REPCOMANDO, NomeVariavel -> 9
         adicionarRegra(NaoTerminais.REPCOMANDO.getCodigo(), CodigoToken.NOME_STRING.getCodigo(), 32);  // REPCOMANDO, Cin -> 23
@@ -82,12 +84,13 @@ public class TabelaParsing {
         adicionarRegra(NaoTerminais.REPCOMANDO.getCodigo(), CodigoToken.DO.getCodigo(), 32);
         adicionarRegra(NaoTerminais.REPCOMANDO.getCodigo(), CodigoToken.CIN.getCodigo(), 32); 
         adicionarRegra(NaoTerminais.REPCOMANDO.getCodigo(), CodigoToken.COUT.getCodigo(), 32);
+        adicionarRegra(NaoTerminais.REPCOMANDO.getCodigo(), CodigoToken.IF.getCodigo(), 32);
 
         adicionarRegra(NaoTerminais.COMANDO.getCodigo(), CodigoToken.NOME_VARIAVEL.getCodigo(), 33);   // COMANDO, NomeVariavel -> 9
         adicionarRegra(NaoTerminais.COMANDO.getCodigo(), CodigoToken.NOME_CHAR.getCodigo(), 35);   // COMANDO, 8 -> 8
         adicionarRegra(NaoTerminais.COMANDO.getCodigo(), CodigoToken.NOME_STRING.getCodigo(), 34); // COMANDO, 10 -> 10
         //adicionarRegra(NaoTerminais.COMANDO.getCodigo(), CodigoToken.PONTO_VIRGULA.getCodigo(), 38); // COMANDO, 38 -> 38
-        adicionarRegra(NaoTerminais.COMANDO.getCodigo(), CodigoToken.FECHA_CHAVES.getCodigo(), 36); // COMANDO, 36 -> 36
+        adicionarRegra(NaoTerminais.COMANDO.getCodigo(), CodigoToken.FECHA_CHAVES.getCodigo(), 47); // COMANDO, 36 -> 36
         adicionarRegra(NaoTerminais.COMANDO.getCodigo(), CodigoToken.IF.getCodigo(), 47); // COMANDO, If -> 15
         adicionarRegra(NaoTerminais.COMANDO.getCodigo(), CodigoToken.WHILE.getCodigo(), 50);   // COMANDO, While -> 1
         adicionarRegra(NaoTerminais.COMANDO.getCodigo(), CodigoToken.FOR.getCodigo(), 62); // COMANDO, For -> 17
@@ -105,8 +108,8 @@ public class TabelaParsing {
         adicionarRegra(NaoTerminais.COMPARACAO.getCodigo(), CodigoToken.IGUAL.getCodigo(), 51); // COMPARACAO, 29 -> 29
         adicionarRegra(NaoTerminais.COMPARACAO.getCodigo(), CodigoToken.DIFERENTE.getCodigo(), 52); // COMPARACAO, 46 -> 46
         adicionarRegra(NaoTerminais.COMPARACAO.getCodigo(), CodigoToken.MAIOR.getCodigo(), 53); // COMPARACAO, 28 -> 28
-        adicionarRegra(NaoTerminais.COMPARACAO.getCodigo(), CodigoToken.MENOR.getCodigo(), 54); // COMPARACAO, 33 -> 33
-        adicionarRegra(NaoTerminais.COMPARACAO.getCodigo(), CodigoToken.MAIOR_IGUAL.getCodigo(), 55); // COMPARACAO, 27 -> 27
+        adicionarRegra(NaoTerminais.COMPARACAO.getCodigo(), CodigoToken.MENOR.getCodigo(), 55); // COMPARACAO, 33 -> 33
+        adicionarRegra(NaoTerminais.COMPARACAO.getCodigo(), CodigoToken.MAIOR_IGUAL.getCodigo(), 54); // COMPARACAO, 27 -> 27
         adicionarRegra(NaoTerminais.COMPARACAO.getCodigo(), CodigoToken.MENOR_IGUAL.getCodigo(), 56); // COMPARACAO, 31 -> 31
 
         adicionarRegra(NaoTerminais.CONTCOMPARACAO.getCodigo(), CodigoToken.NOME_STRING.getCodigo(), 59);   // CONTCOMPARACAO, NomeVariavel -> 9
@@ -159,6 +162,12 @@ public class TabelaParsing {
         adicionarRegra(NaoTerminais.FATOR.getCodigo(), CodigoToken.NOME_CHAR.getCodigo(), 85);   // TERMO, 8 -> 8
         adicionarRegra(NaoTerminais.FATOR.getCodigo(), CodigoToken.NOME_STRING.getCodigo(), 84); // TERMO, 10 -> 10
         adicionarRegra(NaoTerminais.FATOR.getCodigo(), CodigoToken.ABRE_PARENTESES.getCodigo(), 86); // TERMO, 44 -> 44
+
+        adicionarRegra(NaoTerminais.TPARAM.getCodigo(), CodigoToken.NUMERO_INTEIRO.getCodigo(), 42); 
+        adicionarRegra(NaoTerminais.TPARAM.getCodigo(), CodigoToken.NOME_CHAR.getCodigo(), 45);  
+        adicionarRegra(NaoTerminais.TPARAM.getCodigo(), CodigoToken.NUMERO_FLOAT.getCodigo(), 44);
+        adicionarRegra(NaoTerminais.TPARAM.getCodigo(), CodigoToken.NOME_STRING.getCodigo(), 43); 
+        adicionarRegra(NaoTerminais.TPARAM.getCodigo(), CodigoToken.NOME_VARIAVEL.getCodigo(), 46);
     }
 
     public void adicionarRegra(int pilha, int codigoToken, int producao) {
