@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Stack;
@@ -21,11 +23,16 @@ public class Sintatico {
 
         int valorPilha = pilha.peek();
         int valorTerminal = tokens.get(0);
+        int contagem = 0;
 
         while (valorPilha != SIFRAO) {
+            contagem++;
+            System.out.println("----- Contador: " + contagem + " ----");
             System.out.println("Valor atual da Pilha: " + valorPilha);
             System.out.println("Token atual: " + valorTerminal);
-            System.out.println(pilha);
+            System.out.println("Pilha Restante: " + pilha);
+            System.out.println("------------------------------------");
+            System.out.println("\n");
 
             if (valorPilha == NULO) {
                 pilha.pop();
@@ -52,28 +59,39 @@ public class Sintatico {
                 } else {
                     int producao = tabelaParser.getRegra(valorPilha, valorTerminal);
                     if (producao != -1) {
-                        System.out.println("producao: " + producao + 1);
+                        System.out.println("producao: " + producao);
                         pilha.pop();
                         HashMap<Integer, Integer> linhaBloco = tabelaProd.tabProd.get(producao);
                         if (linhaBloco != null) {
-                            for (int valor : linhaBloco.values()) {
+                            List<Integer> valores = new ArrayList<>(linhaBloco.values());
+                            Collections.reverse(valores);
+                            for (int valor : valores) {
                                 pilha.push(valor);
                             }
                         }
                         valorPilha = pilha.peek();
                     } else {
-                        throw new Exception(
+                        if (SintaticoUtil.VerificaPossuiNulo(valorPilha)) {
+                            pilha.pop();
+                            pilha.push(16);
+                            valorPilha = pilha.peek();
+                        } else {
+                            throw new Exception(
                                 "Não foi possível concluir a Análise Sintática pois o sistema detectou que " +
                                         "não há produções para continuar, logo, o código enviado estando inválido");
+                        }
                     }
                 }
             }
         }
 
-        System.out.println("Pilha: ");
-        System.out.println(pilha);
-        System.out.println("Entrada: ");
-        System.out.println(tokens);
+        contagem++;
+        System.out.println("----- Contador: " + contagem + " ----");
+        System.out.println("Valor atual da Pilha: " + valorPilha);
+        System.out.println("Pilha Restante: " + pilha);
+        System.out.println("------------------------------------");
+        System.out.println("\n");
+
         System.out.println("Sentença reconhecida com sucesso");
     }
 }

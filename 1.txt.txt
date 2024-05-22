@@ -1,3 +1,0 @@
-void main {inicio ; :fim } !=2 'dddddddd'
-
-/*   //  */

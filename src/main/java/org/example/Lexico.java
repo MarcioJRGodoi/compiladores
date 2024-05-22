@@ -24,6 +24,7 @@ public class Lexico {
             List<String> arrayTokens = new ArrayList<>(listaTokens.values());
             // Todos os números de Tokens Encontrados
             List<Integer> tokensEncontrados = new ArrayList<>();
+            List<String> lexemasEncontrados = new ArrayList<>();
             // Quando estiver como comentario de bloco, irá rodar até que encontre o fim do
             // comentário
             boolean ehBlocoDeComentario = false;
@@ -71,6 +72,7 @@ public class Lexico {
                             // Caso seja encontrado uma variavel
                             int token = arrayTokens.indexOf("nomevariavel") + 1;
                             AdicionaTokenLexema(tokensEncontrados, token);
+                            lexemasEncontrados.add(lexema);
                         }
                         lexema = Character.toString(linha.charAt(i));
                     } else if (linha.charAt(i) != ' ' || lexema.startsWith("'")) {
@@ -86,6 +88,7 @@ public class Lexico {
                             int token = arrayTokens.indexOf(lexema) + 1;
                             i += 2;
                             AdicionaTokenLexema(tokensEncontrados, token);
+                            lexemasEncontrados.add(lexema);
                             lexema = "";
                             continue;
                         }
@@ -93,6 +96,7 @@ public class Lexico {
                         // Caso não ache um composto, só adiciona o simples
                         int token = arrayTokens.indexOf(lexema) + 1;
                         AdicionaTokenLexema(tokensEncontrados, token);
+                        lexemasEncontrados.add(lexema);
                         lexema = "";
                     } else {
                         // Aqui vai ter todas as verificações de Integer, float, string, char e literal
@@ -149,6 +153,7 @@ public class Lexico {
                         if (token > 0) {
                             // Caso de tudo certo, adiciona o token
                             AdicionaTokenLexema(tokensEncontrados, token);
+                            lexemasEncontrados.add(lexema);
                             lexema = "";
                             ehLiteral = false;
                             ehStringChar = false;
@@ -169,6 +174,7 @@ public class Lexico {
 
             // Aqui é o final, a partir daqui será continuado o Analisador Sintático
             System.out.println(tokensEncontrados);
+            System.out.println(lexemasEncontrados);
             return tokensEncontrados;
         } catch (IOException e) {
             e.printStackTrace();

@@ -29,7 +29,7 @@ public class TabelaParsing {
         adicionarRegra(NaoTerminais.TIPO.getCodigo(), CodigoToken.FLOAT.getCodigo(), 6);  // TIPO, Float -> 18
         adicionarRegra(NaoTerminais.TIPO.getCodigo(), CodigoToken.STRING.getCodigo(), 7);  // TIPO, String -> 3
 
-        adicionarRegra(NaoTerminais.LDVAR.getCodigo(), CodigoToken.NOME_VARIAVEL.getCodigo(), 11);  // LDVAR, NomeVariavel -> 9
+        adicionarRegra(NaoTerminais.LDVAR.getCodigo(), CodigoToken.NOME_VARIAVEL.getCodigo(), 9);  // LDVAR, NomeVariavel -> 9
         //adicionarRegra(NaoTerminais.LDVAR.getCodigo(), CodigoToken.FECHA_CHAVES.getCodigo(), 37);  // LDVAR, 37 -> 37
         //adicionarRegra(NaoTerminais.LDVAR.getCodigo(), CodigoToken.FIM.getCodigo(), 19);  // LDVAR, 19 -> 19
         adicionarRegra(NaoTerminais.LDVAR.getCodigo(), CodigoToken.I.getCodigo(), 10);  // LDVAR, NomeVariavel -> 9
@@ -70,17 +70,18 @@ public class TabelaParsing {
         adicionarRegra(NaoTerminais.LPARAM.getCodigo(), CodigoToken.I.getCodigo(), 30);  // LPARAM, 43 -> 43
         adicionarRegra(NaoTerminais.LPARAM.getCodigo(), CodigoToken.PONTO_VIRGULA.getCodigo(), 29);  // LPARAM, 38 -> 38
 
-        adicionarRegra(NaoTerminais.CORPO.getCodigo(), CodigoToken.IF.getCodigo(), 30);  // CORPO, If -> NaoTerminais.COMANDO.getCodigo()
+        adicionarRegra(NaoTerminais.CORPO.getCodigo(), CodigoToken.INICIO.getCodigo(), 30);  // CORPO, If -> NaoTerminais.COMANDO.getCodigo()
 
-        adicionarRegra(NaoTerminais.REPCOMANDO.getCodigo(), CodigoToken.NOME_VARIAVEL.getCodigo(), 33);  // REPCOMANDO, NomeVariavel -> 9
-       // adicionarRegra(NaoTerminais.REPCOMANDO.getCodigo(), CodigoToken.IF.getCodigo(), 15);  // REPCOMANDO, If -> 15
-        //adicionarRegra(NaoTerminais.REPCOMANDO.getCodigo(), CodigoToken.WHILE.getCodigo(), 1);  // REPCOMANDO, While -> 1
-        //adicionarRegra(NaoTerminais.REPCOMANDO.getCodigo(), CodigoToken.FOR.getCodigo(), 17);  // REPCOMANDO, For -> 17
-        //adicionarRegra(NaoTerminais.REPCOMANDO.getCodigo(), CodigoToken.DO.getCodigo(), 21);  // REPCOMANDO, Do -> 21
-        adicionarRegra(NaoTerminais.REPCOMANDO.getCodigo(), CodigoToken.NOME_STRING.getCodigo(), 34);  // REPCOMANDO, Cin -> 23
-        adicionarRegra(NaoTerminais.REPCOMANDO.getCodigo(), CodigoToken.CALL_FUNCAO.getCodigo(), 37);  // REPCOMANDO, Cout -> 22
-        adicionarRegra(NaoTerminais.REPCOMANDO.getCodigo(), CodigoToken.NOME_CHAR.getCodigo(), 35);  // REPCOMANDO, 37 -> 37
+        adicionarRegra(NaoTerminais.REPCOMANDO.getCodigo(), CodigoToken.NOME_VARIAVEL.getCodigo(), 32);  // REPCOMANDO, NomeVariavel -> 9
+        adicionarRegra(NaoTerminais.REPCOMANDO.getCodigo(), CodigoToken.NOME_STRING.getCodigo(), 32);  // REPCOMANDO, Cin -> 23
+        adicionarRegra(NaoTerminais.REPCOMANDO.getCodigo(), CodigoToken.CALL_FUNCAO.getCodigo(), 32);  // REPCOMANDO, Cout -> 22
+        adicionarRegra(NaoTerminais.REPCOMANDO.getCodigo(), CodigoToken.NOME_CHAR.getCodigo(), 32);  // REPCOMANDO, 37 -> 37
         adicionarRegra(NaoTerminais.REPCOMANDO.getCodigo(), CodigoToken.I.getCodigo(), 31);  // REPCOMANDO, 19 -> 19
+        adicionarRegra(NaoTerminais.REPCOMANDO.getCodigo(), CodigoToken.WHILE.getCodigo(), 32); 
+        adicionarRegra(NaoTerminais.REPCOMANDO.getCodigo(), CodigoToken.FOR.getCodigo(), 32);
+        adicionarRegra(NaoTerminais.REPCOMANDO.getCodigo(), CodigoToken.DO.getCodigo(), 32);
+        adicionarRegra(NaoTerminais.REPCOMANDO.getCodigo(), CodigoToken.CIN.getCodigo(), 32); 
+        adicionarRegra(NaoTerminais.REPCOMANDO.getCodigo(), CodigoToken.COUT.getCodigo(), 32);
 
         adicionarRegra(NaoTerminais.COMANDO.getCodigo(), CodigoToken.NOME_VARIAVEL.getCodigo(), 33);   // COMANDO, NomeVariavel -> 9
         adicionarRegra(NaoTerminais.COMANDO.getCodigo(), CodigoToken.NOME_CHAR.getCodigo(), 35);   // COMANDO, 8 -> 8
@@ -123,19 +124,22 @@ public class TabelaParsing {
         adicionarRegra(NaoTerminais.SEQUENCIA.getCodigo(), CodigoToken.I.getCodigo(), 70); // SEQUENCIA, If -> 32
 
         adicionarRegra(NaoTerminais.EXPRESSAO.getCodigo(), CodigoToken.CALL_FUNCAO.getCodigo(), 73); // EXPRESSAO, Cin -> 25
-        adicionarRegra(NaoTerminais.EXPRESSAO.getCodigo(), CodigoToken.NOME_STRING.getCodigo(), 84);   // CONTCOMPARACAO, NomeVariavel -> 9
-        adicionarRegra(NaoTerminais.EXPRESSAO.getCodigo(), CodigoToken.NUMERO_INTEIRO.getCodigo(), 81);   // CONTCOMPARACAO, 5 -> 5
-        adicionarRegra(NaoTerminais.EXPRESSAO.getCodigo(), CodigoToken.NUMERO_FLOAT.getCodigo(), 82);   // CONTCOMPARACAO, 6 -> 6
-        adicionarRegra(NaoTerminais.EXPRESSAO.getCodigo(), CodigoToken.NOME_CHAR.getCodigo(), 85);   // CONTCOMPARACAO, 8 -> 8
-        adicionarRegra(NaoTerminais.EXPRESSAO.getCodigo(), CodigoToken.NOME_VARIAVEL.getCodigo(), 83); // CONTCOMPARACAO, 10 -> 10
-        adicionarRegra(NaoTerminais.EXPRESSAO.getCodigo(), CodigoToken.ABRE_PARENTESES.getCodigo(), 86); // TERMO, 44 -> 44
+        adicionarRegra(NaoTerminais.EXPRESSAO.getCodigo(), CodigoToken.NOME_STRING.getCodigo(), 72);   // CONTCOMPARACAO, NomeVariavel -> 9
+        adicionarRegra(NaoTerminais.EXPRESSAO.getCodigo(), CodigoToken.NUMERO_INTEIRO.getCodigo(), 72);   // CONTCOMPARACAO, 5 -> 5
+        adicionarRegra(NaoTerminais.EXPRESSAO.getCodigo(), CodigoToken.NUMERO_FLOAT.getCodigo(), 72);   // CONTCOMPARACAO, 6 -> 6
+        adicionarRegra(NaoTerminais.EXPRESSAO.getCodigo(), CodigoToken.NOME_CHAR.getCodigo(), 72);   // CONTCOMPARACAO, 8 -> 8
+        adicionarRegra(NaoTerminais.EXPRESSAO.getCodigo(), CodigoToken.NOME_VARIAVEL.getCodigo(), 72); // CONTCOMPARACAO, 10 -> 10
+        adicionarRegra(NaoTerminais.EXPRESSAO.getCodigo(), CodigoToken.ABRE_PARENTESES.getCodigo(), 72); // TERMO, 44 -> 44
 
         adicionarRegra(NaoTerminais.REPEXP.getCodigo(), CodigoToken.I.getCodigo(), 76); // REPEXP, 19 -> 19
         adicionarRegra(NaoTerminais.REPEXP.getCodigo(), CodigoToken.ADICAO.getCodigo(), 74); // REPEXP, 35 -> 35
         adicionarRegra(NaoTerminais.REPEXP.getCodigo(), CodigoToken.SUBTRACAO.getCodigo(), 75); // REPEXP, 48 -> 48
 
+        adicionarRegra(NaoTerminais.SEQCOUT.getCodigo(), CodigoToken.MENOR_MENOR.getCodigo(), 69); 
+
         adicionarRegra(NaoTerminais.TERMO.getCodigo(), CodigoToken.NUMERO_INTEIRO.getCodigo(), 81);   // TERMO, 5 -> 5
         adicionarRegra(NaoTerminais.TERMO.getCodigo(), CodigoToken.NUMERO_FLOAT.getCodigo(), 82);   // TERMO, 6 -> 6
+        adicionarRegra(NaoTerminais.TERMO.getCodigo(), CodigoToken.NOME_VARIAVEL.getCodigo(), 83);
         adicionarRegra(NaoTerminais.TERMO.getCodigo(), CodigoToken.NOME_CHAR.getCodigo(), 85);   // TERMO, 8 -> 8
         adicionarRegra(NaoTerminais.TERMO.getCodigo(), CodigoToken.NOME_STRING.getCodigo(), 84); // TERMO, 10 -> 10
         adicionarRegra(NaoTerminais.TERMO.getCodigo(), CodigoToken.ABRE_PARENTESES.getCodigo(), 86); // TERMO, 44 -> 44
