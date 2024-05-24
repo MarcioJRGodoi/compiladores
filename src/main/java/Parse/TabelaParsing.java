@@ -24,6 +24,7 @@ public class TabelaParsing {
         //adicionarRegra(NaoTerminais.REPIDENT.getCodigo(), CodigoToken.NUMERO_INTEIRO.getCodigo(), 38);  // REPIDENT, Numerointeiro -> 38
         adicionarRegra(NaoTerminais.REPIDENT.getCodigo(), CodigoToken.VIRGULA.getCodigo(), 4);  // REPIDENT, Numerofloat -> 39
 
+        adicionarRegra(NaoTerminais.TIPO.getCodigo(), CodigoToken.NUMERO_INTEIRO.getCodigo(), 5);  // TIPO, Integer -> 13
         adicionarRegra(NaoTerminais.TIPO.getCodigo(), CodigoToken.INTEGER.getCodigo(), 5);  // TIPO, Integer -> 13
         adicionarRegra(NaoTerminais.TIPO.getCodigo(), CodigoToken.CHAR.getCodigo(), 8);  // TIPO, Char -> 24
         adicionarRegra(NaoTerminais.TIPO.getCodigo(), CodigoToken.FLOAT.getCodigo(), 6);  // TIPO, Float -> 18
@@ -137,6 +138,7 @@ public class TabelaParsing {
         adicionarRegra(NaoTerminais.REPEXP.getCodigo(), CodigoToken.I.getCodigo(), 76); // REPEXP, 19 -> 19
         adicionarRegra(NaoTerminais.REPEXP.getCodigo(), CodigoToken.ADICAO.getCodigo(), 74); // REPEXP, 35 -> 35
         adicionarRegra(NaoTerminais.REPEXP.getCodigo(), CodigoToken.SUBTRACAO.getCodigo(), 75); // REPEXP, 48 -> 48
+        adicionarRegra(NaoTerminais.REPEXP.getCodigo(), CodigoToken.MULTIPLICACAO.getCodigo(), 75); // REPEXP, 48 -> 48
 
         adicionarRegra(NaoTerminais.SEQCOUT.getCodigo(), CodigoToken.MENOR_MENOR.getCodigo(), 69); 
 

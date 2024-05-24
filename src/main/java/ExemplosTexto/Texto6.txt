@@ -1,0 +1,14 @@
+void main {
+    nomevariavel : integer;
+    resultado : integer;
+    inicio
+        nomevariavel = 10;
+        resultado = nomevariavel + 5;
+        cout << "Soma: " << resultado;
+
+        resultado = nomevariavel - 10;
+        cout << "Subtração: " << resultado
+
+    fim
+}
+{ Sera Gerado um erro por falta de  ";" apos out << "Subtração: " << resultado}

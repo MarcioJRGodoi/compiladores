@@ -1,0 +1,13 @@
+void main {
+    nomevariavel : integer;
+        inicio
+            nomevariavel = 0;
+            while (nomevariavel < 10) {
+                nomevariavel = nomevariavel + 1;
+            };
+
+            for (nomevariavel = 0; nomevariavel < 5; ++numerointeiro) {
+                nomevariavel = nomevariavel ;
+            };
+        fim
+}

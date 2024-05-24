@@ -11,6 +11,7 @@ import Parse.TabelaProd;
 
 public class Sintatico {
     static int SIFRAO = 45;
+    static int MENOS = 48;
     static int NULO = 16;
     private static TabelaParsing tabelaParser;
     private static TabelaProd tabelaProd;
@@ -36,7 +37,7 @@ public class Sintatico {
                 pilha.pop();
                 valorPilha = pilha.peek();
             } else {
-                if (valorPilha <= SIFRAO) { // topo da pilha é um terminal
+                if (valorPilha <= MENOS) { // topo da pilha é um terminal
                     if (valorPilha == valorTerminal) {          // deu match
                         pilha.pop();
 
