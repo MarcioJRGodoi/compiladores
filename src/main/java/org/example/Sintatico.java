@@ -38,7 +38,7 @@ public class Sintatico {
                 valorPilha = pilha.peek();
             } else {
                 if (valorPilha <= MENOS) { // topo da pilha é um terminal
-                    if (valorPilha == valorTerminal) {          // deu match
+                    if (valorPilha == valorTerminal) { 
                         pilha.pop();
 
                         if (!tokens.isEmpty() && tokens.size() > 1) {
