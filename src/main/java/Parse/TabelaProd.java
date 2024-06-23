@@ -7,7 +7,7 @@ public class TabelaProd {
 
     static int var_while = 1;
     static int var_void = 2;
-    static int var_string = 3;
+    public static int var_string = 3;
     static int var_return = 4;
     static int var_numerointeiro = 5;
     static int var_numerofloat = 6;
@@ -17,18 +17,18 @@ public class TabelaProd {
     static int var_nomedastring = 10;
     static int var_main = 11;
     static int var_literal = 12;
-    static int var_integer = 13;
+    public static int var_integer = 13;
     static int var_inicio = 14;
     static int var_if = 15;
     static int var_nulo = 16;
     static int var_for = 17;
-    static int var_float = 18;
+    public static int var_float = 18;
     static int var_fim = 19;
     static int var_else = 20;
     static int var_do = 21;
     static int var_cout = 22;
     static int var_cin = 23;
-    static int var_char = 24;
+    public static int var_char = 24;
     static int var_callfuncao = 25;
     static int var_maiormaior = 26;
     static int var_maiorigual = 27;

@@ -9,6 +9,8 @@ public class Main {
             List<Integer> tokensEncontrados = Lexico.analiseLexica(caminhoArquivoEntrada);
             if (!tokensEncontrados.isEmpty()) {
                 Sintatico.AnaliseSintatica(tokensEncontrados);
+                AnalisadorSemantico semantico = new AnalisadorSemantico();
+                semantico.realizarAnaliseSemantica(tokensEncontrados);
             } else {
               MainUtil.erroLexicaSemToken();
             }

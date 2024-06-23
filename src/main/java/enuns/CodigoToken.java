@@ -82,4 +82,13 @@ public enum CodigoToken {
         }
         return null;
     }
+
+    public static CodigoToken BuscarTokenPorCodigo(Integer tokenString) {
+        for (CodigoToken token : CodigoToken.values()) {
+            if (token.getCodigo() == tokenString) {
+                return token;
+            }
+        }
+        return null;
+    }
 }
