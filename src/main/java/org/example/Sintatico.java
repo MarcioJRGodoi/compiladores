@@ -28,10 +28,8 @@ public class Sintatico {
 
         while (valorPilha != SIFRAO) {
             contagem++;
-            System.out.println("----- Contador: " + contagem + " ----");
-            System.out.println("Valor atual da Pilha: " + valorPilha);
-            System.out.println("Token atual: " + valorTerminal);
-            System.out.println("Pilha Restante: " + pilha);
+
+            geraPrintInicial(contagem, valorPilha, valorTerminal, pilha);
 
             if (valorPilha == NULO) {
                 pilha.pop();
@@ -42,7 +40,6 @@ public class Sintatico {
                         pilha.pop();
 
                         if (!tokens.isEmpty() && tokens.size() > 1) {
-                            // Removendo o primeiro elemento usando subList
                             tokens = tokens.subList(1, tokens.size());
                         }
 
@@ -51,7 +48,7 @@ public class Sintatico {
                             valorTerminal = tokens.get(0);
                         }
                     } else {
-                        throw new Exception(
+                        geraErro(
                                 "Não foi possível concluir a Análise Sintática pois o sistema detectou que " +
                                         "o código enviado está inválido e necessita correção");
                     }
@@ -75,25 +72,42 @@ public class Sintatico {
                             pilha.push(16);
                             valorPilha = pilha.peek();
                         } else {
-                            throw new Exception(
+                            geraErro(
                                 "Não foi possível concluir a Análise Sintática pois o sistema detectou que " +
                                         "não há produções para continuar, logo, o código enviado estando inválido");
                         }
                     }
                 }
             }
-
-            System.out.println("------------------------------------");
-            System.out.println("\n");
+            geraPrintFinal();
         }
 
         contagem++;
+        geraPrintConclusao(contagem, valorPilha, pilha);
+    }
+
+    private static void geraErro(String mensagem) throws Exception {
+        throw new Exception(mensagem);
+    }
+
+    private static void geraPrintInicial(int contagem, int valorPilha, int valorTerminal, Stack<Integer> pilha) {
+        System.out.println("----- Contador: " + contagem + " ----");
+        System.out.println("Valor atual da Pilha: " + valorPilha);
+        System.out.println("Token atual: " + valorTerminal);
+        System.out.println("Pilha Restante: " + pilha);
+    }
+
+    private static void geraPrintFinal() {
+        System.out.println("------------------------------------");
+        System.out.println("\n");
+    }
+
+    private static void geraPrintConclusao(int contagem, int valorPilha, Stack<Integer> pilha) {
         System.out.println("----- Contador: " + contagem + " ----");
         System.out.println("Valor atual da Pilha: " + valorPilha);
         System.out.println("Pilha Restante: " + pilha);
         System.out.println("------------------------------------");
         System.out.println("\n");
-
         System.out.println("Sentença reconhecida com sucesso");
     }
 }
