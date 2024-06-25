@@ -248,7 +248,7 @@ public class Sintatico {
                                         semantico.AdicionarTokenSemantica(
                                                 palavraLexema,
                                                 "procedure",
-                                                "",
+                                                listaVariavelSemantica.get(0),
                                                 GLOBAL,
                                                 numeroLinha);
                                         geraVariavelSemantica = false;
@@ -298,6 +298,7 @@ public class Sintatico {
                                          * reconhecendo que pode ser o inicio de uma função local
                                          */
                                         listaVariavelSemantica.clear();
+                                        listaVariavelSemantica.add(palavraLexema);
                                         // Vai permitir adicionar uma variavel na tabela semantica de categoria
                                         // "procedure"
                                         geraVariavelSemantica = true;
