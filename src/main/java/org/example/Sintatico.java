@@ -13,6 +13,15 @@ public class Sintatico {
     static int SIFRAO = 45;
     static int MENOS = 48;
     static int NULO = 16;
+    static int VARIAVEL = 7;
+    static int INICIO = 14;
+    static int INTEGER = 13;
+    static int FLOAT = 18;
+    static int CHAR = 24;
+    static int STRING = 3;
+    static int GLOBAL = 0;
+    static int LOCAL = 1;
+
     private static TabelaParsing tabelaParser;
     private static TabelaProd tabelaProd;
 
@@ -63,6 +72,12 @@ public class Sintatico {
         // vezes ocorreu as iterações
         int contagem = 0;
 
+        boolean validaVariaveisSemantica = false;
+        boolean ehFuncaoSemantica = false;
+        boolean geraFuncaoSemantica = false;
+        boolean geraVariavelSemantica = false;
+        String variavelSemantica = "";
+
         /*
          * Só vai finalizar o While quando o valorPilha chegar no SIFRAO
          * significando que todas as funções rodaram bonitinho e não houve erros
@@ -107,6 +122,88 @@ public class Sintatico {
                         pilha.pop();
 
                         /*
+                         * Essa validação serve para sabermos quando precisamos parar de adicionar
+                         * as variáveis e começar a validar elas
+                         */
+                        if ((!validaVariaveisSemantica) && (valorPilha == INICIO)) {
+                            validaVariaveisSemantica = true;
+                        }
+
+                        if (!validaVariaveisSemantica) {
+                            /*
+                             * Enquanto não for realizada a validação das variaveis, iremos adiciona-las aqui
+                             * Basicamente nesta parte do if (geraVariavelSemantica), é verificado
+                             * se o sistema encontrou já uma VARIAVEL e esta esperando receber
+                             * que tipo de variável é para poder adicionar ela na tabela semantica
+                             * 
+                             * O Processo funciona seguindo o seguinte exemplo:
+                             * 
+                             * > 1 - o geraVariavelSemantica vai estar false até que ele encontre
+                             * um token VARIAVEL, que irá entrar no else do código abaixo
+                             * 
+                             * > 2 - Sabendo a variável, vai deixar o geraVariavelSemantica como true
+                             * e salvar o lexema localmente em outra variavel, pois iremos
+                             * necessitar passar por outros token's
+                             * 
+                             * > 3 - com o geraVariavelSemantica, vai entrar no IF e verificar
+                             * que tipo de variavel é, adicionando-a na tabela Semantica
+                             * 
+                             * Observe que ela vai como GLOBAL, pois as LOCAIS são somentes as dentro de Funções
+                             * 
+                             * > 4 - reseta o geraVariavelSemantica até vir uma próxima variavel
+                             */
+                            if (geraVariavelSemantica) {
+                                if (valorTerminal == INTEGER) {
+                                    // Salva na tabela Semantica como INTEGER GLOBAL
+                                    semantico.AdicionarTokenSemantica(variavelSemantica, "variavel", "integer", GLOBAL,
+                                            numeroLinha);
+
+                                    // Vai resetar as variaveis para a próxima adição
+                                    geraVariavelSemantica = false;
+                                    variavelSemantica = "";
+                                } else if (valorTerminal == FLOAT) {
+                                    // Salva na tabela Semantica como FLOAT GLOBAL
+                                    semantico.AdicionarTokenSemantica(variavelSemantica, "variavel", "float", GLOBAL,
+                                            numeroLinha);
+
+                                    // Vai resetar as variaveis para a próxima adição
+                                    geraVariavelSemantica = false;
+                                    variavelSemantica = "";
+                                } else if (valorTerminal == CHAR) {
+                                    // Salva na tabela Semantica como CHAR GLOBAL
+                                    semantico.AdicionarTokenSemantica(variavelSemantica, "variavel", "char", GLOBAL,
+                                            numeroLinha);
+
+                                    // Vai resetar as variaveis para a próxima adição
+                                    geraVariavelSemantica = false;
+                                    variavelSemantica = "";
+                                } else if (valorTerminal == STRING) {
+                                    // Salva na tabela Semantica como STRING GLOBAL
+                                    semantico.AdicionarTokenSemantica(variavelSemantica, "variavel", "string", 0,
+                                            numeroLinha);
+
+                                    // Vai resetar as variaveis para a próxima adição
+                                    geraVariavelSemantica = false;
+                                    variavelSemantica = "";
+                                }
+                            } else {
+                                if (valorTerminal == VARIAVEL) {
+                                    geraVariavelSemantica = true;
+                                    variavelSemantica = palavraLexema;
+                                }
+                            }
+                        } else {
+                            /*
+                             * Nesta parte é após as inserções de variaveis na tabela
+                             * Irá realizar a validação para ver se todas as variaveis que estão
+                             * sendo usadas estão corretamente na tabela de Semantica
+                             */
+                            if (valorTerminal == VARIAVEL) {
+                                semantico.verificaVariavelDeclarada(palavraLexema, numeroLinha);
+                            }
+                        }
+
+                        /*
                          * Exclui o primeiro item das listas pois
                          * passaram corretamente na Análise Sintática.
                          */
@@ -132,7 +229,7 @@ public class Sintatico {
                         }
                     } else {
                         geraErro(
-                                "\n" + "ERRO!" + "\n" +
+                                "\n" + "[Erro Sintático]" + "\n" +
                                         "Lexema: " + palavraLexema + "\n" +
                                         "Linha do Código: " + numeroLinha + "\n" +
                                         "Não foi possível concluir a Análise Sintática pois o sistema detectou que " +
@@ -181,7 +278,7 @@ public class Sintatico {
                              * e o NÃO TERMINAL não tem NULO, irá gerar um erro obrigatoriamente
                              */
                             geraErro(
-                                    "\n" + "ERRO!" + "\n" +
+                                    "\n" + "[Erro Sintático]" + "\n" +
                                             "Lexema: " + palavraLexema + "\n" +
                                             "Linha do Código: " + numeroLinha + "\n" +
                                             "Não foi possível concluir a Análise Sintática pois o sistema detectou que "

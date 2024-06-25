@@ -3,22 +3,40 @@ package Semantico;
 import enuns.CodigoToken;
 
 public class TabelaSimbolosSemantico {
-    private CodigoToken tokenVariavel;
-    private CodigoToken tokenTipoVariavel;
+    private String tokenLexema;
+    private String tokenCategoria;
+    private String tokenTipo;
+    private int tokenNivel;
 
-    public CodigoToken getTokenVariavel() {
-        return tokenVariavel;
+    public String getTokenLexema() {
+        return tokenLexema;
     }
 
-    public void setTokenVariavel(CodigoToken tokenVariavel) {
-        this.tokenVariavel = tokenVariavel;
+    public void setTokenLexema(String tokenLexema) {
+        this.tokenLexema = tokenLexema;
     }
 
-    public CodigoToken getTokenTipoVariavel() {
-        return tokenTipoVariavel;
+    public String getTokenCategoria() {
+        return tokenCategoria;
     }
 
-    public void setTokenTipoVariavel(CodigoToken tokenTipoVariavel) {
-        this.tokenTipoVariavel = tokenTipoVariavel;
+    public void setTokenCategoria(String tokenCategoria) {
+        this.tokenCategoria = tokenCategoria;
+    }
+
+    public String getTokenTipo() {
+        return tokenTipo;
+    }
+
+    public void setTokenTipo(String tokenTipo) {
+        this.tokenTipo = tokenTipo;
+    }
+
+    public int getTokenNivel() {
+        return tokenNivel;
+    }
+
+    public void setTokenNivel(int tokenNivel) {
+        this.tokenNivel = tokenNivel;
     }
 }

@@ -1,139 +1,61 @@
 package org.example;
 
 import Semantico.TabelaSimbolosSemantico;
-import enuns.CodigoToken;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class Semantico {
 
     private List<TabelaSimbolosSemantico> lista = new ArrayList<>();
-    private List<CodigoToken> listaComparacao = new ArrayList<>();
 
-    public void realizarAnaliseSemantica(List<Integer> tokensEncontrados) {
-        List<CodigoToken> tokensConvertidos = converterTokens(tokensEncontrados);
-        for (CodigoToken token : tokensConvertidos) {
-            aplicarRegrasSemanticas(token);
-        }
-    }
-
-    private List<CodigoToken> converterTokens(List<Integer> tokensEncontrados) {
-        List<CodigoToken> tokensConvertidos = new ArrayList<>();
-        for (Integer codigo : tokensEncontrados) {
-            CodigoToken token = CodigoToken.BuscarTokenPorCodigo(codigo);
-            tokensConvertidos.add(token);
-        }
-        return tokensConvertidos;
-    }
-
-    private void aplicarRegrasSemanticas(CodigoToken token) {
-        regraSemantica100(token);
-        regraSemantica101(token);
-        regraSemantica102(token);
-        regraSemantica103();
-        regraSemantica104(token);
-    }
-
-    private void regraSemantica100(CodigoToken token) {
+    public void AdicionarTokenSemantica(String lexema, String categoria, String tipo, int nivel, int numeroLinha) {
         TabelaSimbolosSemantico simboloTabela = new TabelaSimbolosSemantico();
         if (lista.isEmpty()) {
-            simboloTabela.setTokenVariavel(token);
+            simboloTabela.setTokenLexema(lexema);
+            simboloTabela.setTokenCategoria(categoria);
+            simboloTabela.setTokenTipo(tipo);
+            simboloTabela.setTokenNivel(nivel);
+
             lista.add(simboloTabela);
         } else {
-            if (pesquisaNomeToken(token)) {
-                throw new RuntimeException("[Erro Semantico] variavel Ambigua: " + token.getTokenString());
+            if (verificaExisteLexema(lexema)) {
+                throw new RuntimeException(
+                        "\n" + "[Erro Semantico]" + "\n" +
+                                "Lexema: " + lexema + "\n" +
+                                "Linha do Código: " + numeroLinha + "\n" +
+                                "A Variável já foi declarada!");
             } else {
-                simboloTabela.setTokenVariavel(token);
+                simboloTabela.setTokenLexema(lexema);
+                simboloTabela.setTokenCategoria(categoria);
+                simboloTabela.setTokenTipo(tipo);
+                simboloTabela.setTokenNivel(nivel);
+
                 lista.add(simboloTabela);
             }
         }
     }
 
-    private void regraSemantica101(CodigoToken token) {
-        colocarTipoTodasVariaveisSemTipo(token);
-    }
-
-    private void regraSemantica102(CodigoToken token) {
-        listaComparacao.add(token);
-    }
-
-    private void regraSemantica103() {
-        verificaTipoListaComparacao();
-    }
-
-    private void regraSemantica104(CodigoToken token) {
+    public void verificaVariavelDeclarada(String lexema, int numeroLinha) {
         for (TabelaSimbolosSemantico simbolo : lista) {
-            if (simbolo.getTokenVariavel().getTokenString().equals(token.getTokenString())) {
+            String simboloLexema = simbolo.getTokenLexema();
+            if (simboloLexema.toLowerCase().equals(lexema.toLowerCase())) {
                 return;
             }
         }
-        throw new RuntimeException("[Erro Semantico] variavel precisa ser declarada: " + token.getTokenString());
+        throw new RuntimeException(
+                "\n" + "[Erro Semantico]" + "\n" +
+                        "Lexema: " + lexema + "\n" +
+                        "Linha do Código: " + numeroLinha + "\n" +
+                        "A Variável precisa ser declarada!");
     }
 
-    private Boolean pesquisaNomeToken(CodigoToken token) {
+    private Boolean verificaExisteLexema(String lexema) {
         for (TabelaSimbolosSemantico simbolo : lista) {
-            if (simbolo.getTokenVariavel().getTokenString().equals(token.getTokenString())) {
+            if (simbolo.getTokenLexema() == lexema) {
                 return true;
             }
         }
         return false;
-    }
-
-    private void colocarTipoTodasVariaveisSemTipo(CodigoToken token) {
-        for (TabelaSimbolosSemantico simbolo : lista) {
-            if (simbolo.getTokenTipoVariavel() == null) {
-                simbolo.setTokenTipoVariavel(token);
-            }
-        }
-    }
-
-    private void verificaTipoListaComparacao() {
-        String tipo = "";
-        String tipoAtual;
-        for (CodigoToken token : listaComparacao) {
-            CodigoToken tipoToken = buscaTipoToken(token);
-            if (tipoToken != null && tipo.isEmpty()) {
-                tipo = Objects.requireNonNull(tipoToken).getTokenString();
-            } else if (tipoToken != null) {
-                if (!Objects.requireNonNull(tipoToken).getTokenString().equals(tipo)) {
-                    throw new RuntimeException("[Erro Semantico] use apenas um tipo de variavel");
-                }
-            } else {
-                tipoAtual = token.getTokenString();
-                switch (tipoAtual) {
-                    case "numeroInteiro":
-                        tipoAtual = "integer";
-                        break;
-                    case "numeroFloat":
-                        tipoAtual = "float";
-                        break;
-                    case "nomeDaString":
-                        tipoAtual = "string";
-                        break;
-                    case "nomeDoChar":
-                        tipoAtual = "char";
-                        break;
-                }
-                if (tipoAtual.equals(tipo)) {
-                    continue;
-                } else if (!tipoAtual.equals(tipo)) {
-                    throw new RuntimeException("[Erro Semantico] use apenas um tipo de variavel");
-                } else {
-                    throw new RuntimeException("[Erro Semantico] Variavel nula");
-                }
-            }
-        }
-        listaComparacao.clear();
-    }
-
-    private CodigoToken buscaTipoToken(CodigoToken token) {
-        for (TabelaSimbolosSemantico simbolo : lista) {
-            if (simbolo.getTokenVariavel().getTokenString().equals(token.getTokenString())) {
-                return simbolo.getTokenTipoVariavel();
-            }
-        }
-        return null;
     }
 }

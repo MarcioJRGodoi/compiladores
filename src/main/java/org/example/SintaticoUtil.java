@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Stack;
 
-import javax.print.attribute.standard.MediaSize.NA;
-
 import Parse.TabelaProd;
 import enuns.NaoTerminais;
 

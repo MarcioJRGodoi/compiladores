@@ -7,7 +7,7 @@ void main {
     inicio
     teste1 = 12;
     teste2 = 44.43;
-    teste12 = teste2 + teste1;
+    teste2 = teste2 + teste1;
     if (teste1 == 55) {
         teste1 = 54;
     };
@@ -22,6 +22,5 @@ void main {
     } while (teste1 > 32);
     cin >> teste1;
     cout << "literal" << teste1;
-    callfuncao func(23);
     fim
 }
