@@ -12,8 +12,6 @@ public class Main {
             List<Integer> listaTokens = Lexico.analiseLexica(caminhoArquivoEntrada, listaLexemas, listaLinhas);
             if (!listaTokens.isEmpty()) {
                 Sintatico.AnaliseSintatica(listaTokens, listaLexemas, listaLinhas);
-                //AnalisadorSemantico semantico = new AnalisadorSemantico();
-                //semantico.realizarAnaliseSemantica(listaTokens);
             } else {
               MainUtil.erroLexicaSemToken();
             }
