@@ -14,11 +14,13 @@ public class Sintatico {
     static int MENOS = 48;
     static int NULO = 16;
     static int VARIAVEL = 7;
+    static int FECHA_CHAVES = 36;
     static int INICIO = 14;
     static int INTEGER = 13;
     static int FLOAT = 18;
     static int CHAR = 24;
     static int STRING = 3;
+    static int VOID = 2;
     static int GLOBAL = 0;
     static int LOCAL = 1;
 
@@ -129,6 +131,10 @@ public class Sintatico {
                             validaVariaveisSemantica = true;
                         }
 
+                        if ((ehFuncaoSemantica) && (valorPilha == INICIO)) {
+                            validaVariaveisSemantica = true;
+                        }
+
                         if (!validaVariaveisSemantica) {
                             /*
                              * Enquanto não for realizada a validação das variaveis, iremos adiciona-las
@@ -155,27 +161,28 @@ public class Sintatico {
                              * > 4 - reseta o geraVariavelSemantica até vir uma próxima variavel
                              */
                             if (geraVariavelSemantica) {
+                                int NIVEL = ehFuncaoSemantica ? LOCAL : GLOBAL;
                                 if (valorTerminal == INTEGER) {
-                                    // Salva na tabela Semantica como INTEGER GLOBAL
+                                    // Salva na tabela Semantica como INTEGER
                                     for (int i = 0; i < listaVariavelSemantica.size(); i++) {
                                         semantico.AdicionarTokenSemantica(
                                                 listaVariavelSemantica.get(i),
                                                 "variavel",
                                                 "integer",
-                                                GLOBAL,
+                                                NIVEL,
                                                 numeroLinha);
                                     }
                                     // Vai resetar as variaveis para a próxima adição
                                     geraVariavelSemantica = false;
                                     listaVariavelSemantica.clear();
                                 } else if (valorTerminal == FLOAT) {
-                                    // Salva na tabela Semantica como FLOAT GLOBAL
+                                    // Salva na tabela Semantica como FLOAT
                                     for (int i = 0; i < listaVariavelSemantica.size(); i++) {
                                         semantico.AdicionarTokenSemantica(
                                                 listaVariavelSemantica.get(i),
                                                 "variavel",
                                                 "float",
-                                                GLOBAL,
+                                                NIVEL,
                                                 numeroLinha);
                                     }
 
@@ -183,13 +190,13 @@ public class Sintatico {
                                     geraVariavelSemantica = false;
                                     listaVariavelSemantica.clear();
                                 } else if (valorTerminal == CHAR) {
-                                    // Salva na tabela Semantica como CHAR GLOBAL
+                                    // Salva na tabela Semantica como CHAR
                                     for (int i = 0; i < listaVariavelSemantica.size(); i++) {
                                         semantico.AdicionarTokenSemantica(
                                                 listaVariavelSemantica.get(i),
                                                 "variavel",
                                                 "char",
-                                                GLOBAL,
+                                                NIVEL,
                                                 numeroLinha);
                                     }
 
@@ -197,13 +204,13 @@ public class Sintatico {
                                     geraVariavelSemantica = false;
                                     listaVariavelSemantica.clear();
                                 } else if (valorTerminal == STRING) {
-                                    // Salva na tabela Semantica como STRING GLOBAL
+                                    // Salva na tabela Semantica como STRING
                                     for (int i = 0; i < listaVariavelSemantica.size(); i++) {
                                         semantico.AdicionarTokenSemantica(
                                                 listaVariavelSemantica.get(i),
                                                 "variavel",
                                                 "string",
-                                                GLOBAL,
+                                                NIVEL,
                                                 numeroLinha);
                                     }
 
@@ -211,17 +218,100 @@ public class Sintatico {
                                     geraVariavelSemantica = false;
                                     listaVariavelSemantica.clear();
                                 } else if (valorTerminal == VARIAVEL) {
-                                    /*
-                                     * Caso tenha mais de uma variável sendo declarada no mesmo tipo:
-                                     * Exemplo: "var1, var2, var3 : integer;
-                                     */
-                                    listaVariavelSemantica.add(palavraLexema);
+                                    if (!geraFuncaoSemantica) {
+                                        if (!ehFuncaoSemantica) {
+                                            /*
+                                             * Caso tenha mais de uma variável sendo declarada no mesmo tipo:
+                                             * Exemplo: "var1, var2, var3 : integer;
+                                             */
+                                            listaVariavelSemantica.add(palavraLexema);
+                                        } else {
+                                            /*
+                                             * caso o ehFuncaoSemantica esteja como true e chegou aqui, significa que
+                                             * estamos tendo que adicionar um parâmetro na tabela de Semantica, pois
+                                             * diferente das variaveis, eles são atribuidos de maneira diferente
+                                             */
+                                            semantico.AdicionarTokenSemantica(
+                                                    palavraLexema,
+                                                    "parâmetro",
+                                                    listaVariavelSemantica.get(0),
+                                                    GLOBAL,
+                                                    numeroLinha);
+                                            geraVariavelSemantica = false;
+                                            listaVariavelSemantica.clear();
+                                        }
+                                    } else {
+                                        /*
+                                         * Só vai entrar aqui quando sabermos que o código está prestes a entrar em uma
+                                         * função local, já salvando seu nomeFunc na tabela de Semantica
+                                         */
+                                        semantico.AdicionarTokenSemantica(
+                                                palavraLexema,
+                                                "procedure",
+                                                "",
+                                                GLOBAL,
+                                                numeroLinha);
+                                        geraVariavelSemantica = false;
+                                        geraFuncaoSemantica = false;
+                                        ehFuncaoSemantica = true;
+                                        listaVariavelSemantica.clear();
+                                    }
+                                } else {
+                                    if (geraFuncaoSemantica) {
+                                        /*
+                                         * Quando houver o caso de uma variavel do tipo
+                                         * INTEGER,FLOAT,CHAR,STRING e VOID ter ativado a geração de função
+                                         * local, porém o lexema após não é uma variável. Um exemplo seria o começo do
+                                         * código "void main ..."
+                                         * 
+                                         * Com isso, o sistema sabe que não precisa se preocupar que está vindo uma
+                                         * função local
+                                         */
+                                        geraFuncaoSemantica = false;
+                                        ehFuncaoSemantica = false;
+                                        listaVariavelSemantica.clear();
+                                    }
                                 }
                             } else {
                                 if (valorTerminal == VARIAVEL) {
+                                    /*
+                                     * Este primeiro IF será responsável pela adição de variaveis dentro de uma
+                                     * função global ou local
+                                     */
                                     geraVariavelSemantica = true;
                                     listaVariavelSemantica.clear();
                                     listaVariavelSemantica.add(palavraLexema);
+                                } else if ((valorTerminal == INTEGER) ||
+                                        (valorTerminal == FLOAT) ||
+                                        (valorTerminal == CHAR) ||
+                                        (valorTerminal == STRING) ||
+                                        (valorTerminal == VOID)) {
+                                    /*
+                                     * Aqui existem 2 Casos, quando queremos descobrir se o LEXEMA
+                                     * após o INTEGER,FLOAT,CHAR,STRING e VOID é uma
+                                     * procedure ou um parâmetro
+                                     */
+                                    if (!ehFuncaoSemantica) {
+                                        /*
+                                         * Neste caso, é quando o sistema acha um dos tokens
+                                         * INTEGER, FLOAT, CHAR, STRING e VOID e não está dentro de uma função local,
+                                         * reconhecendo que pode ser o inicio de uma função local
+                                         */
+                                        listaVariavelSemantica.clear();
+                                        // Vai permitir adicionar uma variavel na tabela semantica de categoria
+                                        // "procedure"
+                                        geraVariavelSemantica = true;
+                                        // Vai permitir entrar na função para adicionar a "procedure"
+                                        geraFuncaoSemantica = true;
+                                    } else {
+                                        /*
+                                         * Caso seja um parâmetro de função, entrará nesta parte
+                                         * já que a atribuição na gramáica é feito por TIPO NOME_VARIAVEL
+                                         */
+                                        listaVariavelSemantica.clear();
+                                        listaVariavelSemantica.add(palavraLexema);
+                                        geraVariavelSemantica = true;
+                                    }
                                 }
                             }
                         } else {
@@ -231,7 +321,25 @@ public class Sintatico {
                              * sendo usadas estão corretamente na tabela de Semantica
                              */
                             if (valorTerminal == VARIAVEL) {
+                                /*
+                                 * Neste caso aqui, irá validar as variaveis tanto na função local quanto na função global
+                                 */
                                 semantico.verificaVariavelDeclarada(palavraLexema, numeroLinha);
+                            } else if ((ehFuncaoSemantica) && (valorTerminal == FECHA_CHAVES)) {
+                                /*
+                                 * Aqui serve com o único propósito de quando estivermos saindo da validação local
+                                 * Irá deixar tudo como false, principalmente a verificação de variavel declarada
+                                 */
+                                ehFuncaoSemantica = false;
+                                validaVariaveisSemantica = false;
+                                geraFuncaoSemantica = false;
+                                geraVariavelSemantica = false;
+
+                                /*
+                                 * Para finalizar esta função, iremos remover todas as variaveis da função local
+                                 * para não gerar erros futuros em outros escopos
+                                 */
+                                semantico.excluiVariaveisLocais();
                             }
                         }
 

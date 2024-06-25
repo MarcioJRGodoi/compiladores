@@ -3,12 +3,23 @@ void main {
   teste2: float;
   teste3: string;
   teste4: char;
+
+  // Declaração da função
+  integer soma(integer a; integer b) {
+    resultado: integer;
+    inicio
+      resultado = a + b;  
+    fim
+    return(resultado)
+  }
+
   inicio
-  teste = 10 + 343.555;
-  // void
-  teste2 = teste3;
-  teste4 = 'a';
-  cin >> teste;
-  cout << "Hello, world!" << teste << teste2;
+    teste = 10 + 343.555;
+    // void
+    teste2 = teste3;
+    teste4 = 'a';
+    cin >> teste;
+    cout << "Hello, world!" << teste << teste2;
+    callfuncao soma(23);
   fim
 }

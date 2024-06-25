@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Semantico {
+    static int LOCAL = 1;
 
     private List<TabelaSimbolosSemantico> lista = new ArrayList<>();
 
@@ -58,5 +59,16 @@ public class Semantico {
             }
         }
         return false;
+    }
+
+    public void excluiVariaveisLocais() {
+        if (!lista.isEmpty()) {
+            for (int i = 0; i < lista.size(); i++) {
+                int nivelLexema = lista.get(i).getTokenNivel();
+                if (nivelLexema == LOCAL) {
+                    lista.remove(i);
+                }
+            }
+        }
     }
 }

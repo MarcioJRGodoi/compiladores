@@ -38,10 +38,10 @@ public class TabelaParsing {
 
         adicionarRegra(NaoTerminais.LID.getCodigo(), CodigoToken.NOME_VARIAVEL.getCodigo(), 11);  // LID, NomeVariavel -> 9
 
-        adicionarRegra(NaoTerminais.DCLFUNC.getCodigo(), CodigoToken.INTEGER.getCodigo(), 13);  // DCLFUNC, Integer -> 13
-        adicionarRegra(NaoTerminais.DCLFUNC.getCodigo(), CodigoToken.CHAR.getCodigo(), 15);  // DCLFUNC, Char -> 24
-        adicionarRegra(NaoTerminais.DCLFUNC.getCodigo(), CodigoToken.FLOAT.getCodigo(), 16);  // DCLFUNC, Float -> 18
-        adicionarRegra(NaoTerminais.DCLFUNC.getCodigo(), CodigoToken.STRING.getCodigo(), 17);  // DCLFUNC, String -> 3
+        adicionarRegra(NaoTerminais.DCLFUNC.getCodigo(), CodigoToken.INTEGER.getCodigo(), 12);  // DCLFUNC, Integer -> 13
+        adicionarRegra(NaoTerminais.DCLFUNC.getCodigo(), CodigoToken.CHAR.getCodigo(), 12);  // DCLFUNC, Char -> 24
+        adicionarRegra(NaoTerminais.DCLFUNC.getCodigo(), CodigoToken.FLOAT.getCodigo(), 12);  // DCLFUNC, Float -> 18
+        adicionarRegra(NaoTerminais.DCLFUNC.getCodigo(), CodigoToken.STRING.getCodigo(), 12);  // DCLFUNC, String -> 3
 
         adicionarRegra(NaoTerminais.TIPO_RETORNO.getCodigo(), CodigoToken.VOID.getCodigo(), 14);  // TIPO_RETORNO, Void -> 9
         adicionarRegra(NaoTerminais.TIPO_RETORNO.getCodigo(), CodigoToken.INTEGER.getCodigo(), 13);  // TIPO_RETORNO, Integer -> 13
@@ -63,13 +63,13 @@ public class TabelaParsing {
         adicionarRegra(NaoTerminais.DEFPAR.getCodigo(), CodigoToken.ABRE_PARENTESES.getCodigo(), 26);  // DEFPAR, 37 -> 37
         adicionarRegra(NaoTerminais.DEFPAR.getCodigo(), CodigoToken.I.getCodigo(), 25);  // DEFPAR, 19 -> 19
 
-        adicionarRegra(NaoTerminais.PARAM.getCodigo(), CodigoToken.INTEGER.getCodigo(), 5);  // PARAM, Integer -> 13
-        adicionarRegra(NaoTerminais.PARAM.getCodigo(), CodigoToken.CHAR.getCodigo(), 8);  // PARAM, Char -> 24
-        adicionarRegra(NaoTerminais.PARAM.getCodigo(), CodigoToken.FLOAT.getCodigo(), 6);  // PARAM, Float -> 18
-        adicionarRegra(NaoTerminais.PARAM.getCodigo(), CodigoToken.STRING.getCodigo(), 7);  // PARAM, String -> 3
+        adicionarRegra(NaoTerminais.PARAM.getCodigo(), CodigoToken.INTEGER.getCodigo(), 27);  // PARAM, Integer -> 13
+        adicionarRegra(NaoTerminais.PARAM.getCodigo(), CodigoToken.CHAR.getCodigo(), 27);  // PARAM, Char -> 24
+        adicionarRegra(NaoTerminais.PARAM.getCodigo(), CodigoToken.FLOAT.getCodigo(), 27);  // PARAM, Float -> 18
+        adicionarRegra(NaoTerminais.PARAM.getCodigo(), CodigoToken.STRING.getCodigo(), 27);  // PARAM, String -> 3
 
-        adicionarRegra(NaoTerminais.LPARAM.getCodigo(), CodigoToken.I.getCodigo(), 30);  // LPARAM, 43 -> 43
-        adicionarRegra(NaoTerminais.LPARAM.getCodigo(), CodigoToken.PONTO_VIRGULA.getCodigo(), 29);  // LPARAM, 38 -> 38
+        adicionarRegra(NaoTerminais.LPARAM.getCodigo(), CodigoToken.I.getCodigo(), 28);  // LPARAM, 43 -> 43
+        adicionarRegra(NaoTerminais.LPARAM.getCodigo(), CodigoToken.PONTO_VIRGULA.getCodigo(), 28);  // LPARAM, 38 -> 38
 
         adicionarRegra(NaoTerminais.CORPO.getCodigo(), CodigoToken.INICIO.getCodigo(), 30);  // CORPO, If -> NaoTerminais.COMANDO.getCodigo()
         

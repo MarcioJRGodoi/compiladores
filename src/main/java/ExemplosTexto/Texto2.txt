@@ -7,7 +7,7 @@ void main {
     inicio
     teste1 = 12;
     teste2 = 44.43;
-    teste2 = teste2 + teste1;
+    teste2 = teste3 + teste1;
     if (teste1 == 55) {
         teste1 = 54;
     };
