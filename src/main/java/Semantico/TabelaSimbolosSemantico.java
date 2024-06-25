@@ -1,7 +1,5 @@
 package Semantico;
 
-import enuns.CodigoToken;
-
 public class TabelaSimbolosSemantico {
     private String tokenLexema;
     private String tokenCategoria;

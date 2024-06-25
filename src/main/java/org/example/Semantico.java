@@ -52,7 +52,8 @@ public class Semantico {
 
     private Boolean verificaExisteLexema(String lexema) {
         for (TabelaSimbolosSemantico simbolo : lista) {
-            if (simbolo.getTokenLexema() == lexema) {
+            String simboloLexema = simbolo.getTokenLexema();
+            if (simboloLexema.toLowerCase().equals(lexema.toLowerCase())) {
                 return true;
             }
         }

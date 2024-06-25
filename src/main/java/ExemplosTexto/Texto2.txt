@@ -21,6 +21,6 @@ void main {
         teste1 = 12;
     } while (teste1 > 32);
     cin >> teste1;
-    cout << "literal" << teste1;
+    cout << "literal" << teste12;
     fim
 }

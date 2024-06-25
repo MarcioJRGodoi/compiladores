@@ -76,7 +76,7 @@ public class Sintatico {
         boolean ehFuncaoSemantica = false;
         boolean geraFuncaoSemantica = false;
         boolean geraVariavelSemantica = false;
-        String variavelSemantica = "";
+        List<String> listaVariavelSemantica = new ArrayList<>();
 
         /*
          * Só vai finalizar o While quando o valorPilha chegar no SIFRAO
@@ -131,7 +131,8 @@ public class Sintatico {
 
                         if (!validaVariaveisSemantica) {
                             /*
-                             * Enquanto não for realizada a validação das variaveis, iremos adiciona-las aqui
+                             * Enquanto não for realizada a validação das variaveis, iremos adiciona-las
+                             * aqui
                              * Basicamente nesta parte do if (geraVariavelSemantica), é verificado
                              * se o sistema encontrou já uma VARIAVEL e esta esperando receber
                              * que tipo de variável é para poder adicionar ela na tabela semantica
@@ -148,48 +149,79 @@ public class Sintatico {
                              * > 3 - com o geraVariavelSemantica, vai entrar no IF e verificar
                              * que tipo de variavel é, adicionando-a na tabela Semantica
                              * 
-                             * Observe que ela vai como GLOBAL, pois as LOCAIS são somentes as dentro de Funções
+                             * Observe que ela vai como GLOBAL, pois as LOCAIS são somentes as dentro de
+                             * Funções
                              * 
                              * > 4 - reseta o geraVariavelSemantica até vir uma próxima variavel
                              */
                             if (geraVariavelSemantica) {
                                 if (valorTerminal == INTEGER) {
                                     // Salva na tabela Semantica como INTEGER GLOBAL
-                                    semantico.AdicionarTokenSemantica(variavelSemantica, "variavel", "integer", GLOBAL,
-                                            numeroLinha);
-
+                                    for (int i = 0; i < listaVariavelSemantica.size(); i++) {
+                                        semantico.AdicionarTokenSemantica(
+                                                listaVariavelSemantica.get(i),
+                                                "variavel",
+                                                "integer",
+                                                GLOBAL,
+                                                numeroLinha);
+                                    }
                                     // Vai resetar as variaveis para a próxima adição
                                     geraVariavelSemantica = false;
-                                    variavelSemantica = "";
+                                    listaVariavelSemantica.clear();
                                 } else if (valorTerminal == FLOAT) {
                                     // Salva na tabela Semantica como FLOAT GLOBAL
-                                    semantico.AdicionarTokenSemantica(variavelSemantica, "variavel", "float", GLOBAL,
-                                            numeroLinha);
+                                    for (int i = 0; i < listaVariavelSemantica.size(); i++) {
+                                        semantico.AdicionarTokenSemantica(
+                                                listaVariavelSemantica.get(i),
+                                                "variavel",
+                                                "float",
+                                                GLOBAL,
+                                                numeroLinha);
+                                    }
 
                                     // Vai resetar as variaveis para a próxima adição
                                     geraVariavelSemantica = false;
-                                    variavelSemantica = "";
+                                    listaVariavelSemantica.clear();
                                 } else if (valorTerminal == CHAR) {
                                     // Salva na tabela Semantica como CHAR GLOBAL
-                                    semantico.AdicionarTokenSemantica(variavelSemantica, "variavel", "char", GLOBAL,
-                                            numeroLinha);
+                                    for (int i = 0; i < listaVariavelSemantica.size(); i++) {
+                                        semantico.AdicionarTokenSemantica(
+                                                listaVariavelSemantica.get(i),
+                                                "variavel",
+                                                "char",
+                                                GLOBAL,
+                                                numeroLinha);
+                                    }
 
                                     // Vai resetar as variaveis para a próxima adição
                                     geraVariavelSemantica = false;
-                                    variavelSemantica = "";
+                                    listaVariavelSemantica.clear();
                                 } else if (valorTerminal == STRING) {
                                     // Salva na tabela Semantica como STRING GLOBAL
-                                    semantico.AdicionarTokenSemantica(variavelSemantica, "variavel", "string", 0,
-                                            numeroLinha);
+                                    for (int i = 0; i < listaVariavelSemantica.size(); i++) {
+                                        semantico.AdicionarTokenSemantica(
+                                                listaVariavelSemantica.get(i),
+                                                "variavel",
+                                                "string",
+                                                GLOBAL,
+                                                numeroLinha);
+                                    }
 
                                     // Vai resetar as variaveis para a próxima adição
                                     geraVariavelSemantica = false;
-                                    variavelSemantica = "";
+                                    listaVariavelSemantica.clear();
+                                } else if (valorTerminal == VARIAVEL) {
+                                    /*
+                                     * Caso tenha mais de uma variável sendo declarada no mesmo tipo:
+                                     * Exemplo: "var1, var2, var3 : integer;
+                                     */
+                                    listaVariavelSemantica.add(palavraLexema);
                                 }
                             } else {
                                 if (valorTerminal == VARIAVEL) {
                                     geraVariavelSemantica = true;
-                                    variavelSemantica = palavraLexema;
+                                    listaVariavelSemantica.clear();
+                                    listaVariavelSemantica.add(palavraLexema);
                                 }
                             }
                         } else {
