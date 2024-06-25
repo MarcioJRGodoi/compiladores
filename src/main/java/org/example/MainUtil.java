@@ -8,6 +8,8 @@ public class MainUtil {
     // Função para selecionar o arquivo de entrada
     public static String buscarArquivo() {
         JFileChooser fileChooser = new JFileChooser();
+        File initialDirectory = new File(System.getProperty("user.dir"), "src/main/java/ExemplosTexto");
+        fileChooser.setCurrentDirectory(initialDirectory);
         int resultado = fileChooser.showOpenDialog(null);
         if (resultado == JFileChooser.APPROVE_OPTION) {
             File arquivoSelecionado = fileChooser.getSelectedFile();

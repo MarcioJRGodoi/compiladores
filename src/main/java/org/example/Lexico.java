@@ -13,8 +13,8 @@ public class Lexico {
     static int INICIO_COMENTARIO = 3;
     static int COMENTARIO_LINHA = 4;
 
-
-    public static List<Integer> analiseLexica(String caminhoArquivo) {
+    public static List<Integer> analiseLexica(String caminhoArquivo, List<String> listaLexemas,
+            List<Integer> listaLinhas) {
         try (BufferedReader br = new BufferedReader(new FileReader(caminhoArquivo))) {
             // Aqui está gerando todos os tokens terminais da lista da Gramatica, do 1 até o
             // 48
@@ -24,7 +24,6 @@ public class Lexico {
             List<String> arrayTokens = new ArrayList<>(listaTokens.values());
             // Todos os números de Tokens Encontrados
             List<Integer> tokensEncontrados = new ArrayList<>();
-            List<String> lexemasEncontrados = new ArrayList<>();
             // Quando estiver como comentario de bloco, irá rodar até que encontre o fim do
             // comentário
             boolean ehBlocoDeComentario = false;
@@ -63,16 +62,16 @@ public class Lexico {
                         // Vai achar o final do bloco de comentário e vai sair
                         i += 2;
                         ehBlocoDeComentario = false;
-                        continue;        
+                        continue;
                     }
 
-                    if (arrayTokens.contains(Character.toString(linha.charAt(i))) && 
-                        (!ehLiteral && !ehStringChar)) {
+                    if (arrayTokens.contains(Character.toString(linha.charAt(i))) &&
+                            (!ehLiteral && !ehStringChar)) {
                         if (!lexema.trim().equals("")) {
                             // Caso seja encontrado uma variavel
                             int token = arrayTokens.indexOf("nomevariavel") + 1;
-                            AdicionaTokenLexema(tokensEncontrados, token);
-                            lexemasEncontrados.add(lexema);
+                            AdicionaTokenLexema(tokensEncontrados, token, listaLexemas, lexema, listaLinhas,
+                                    numeroLinha);
                         }
                         lexema = Character.toString(linha.charAt(i));
                     } else if (linha.charAt(i) != ' ' || lexema.startsWith("'")) {
@@ -87,16 +86,16 @@ public class Lexico {
                             lexema += linha.charAt(i + 1);
                             int token = arrayTokens.indexOf(lexema) + 1;
                             i += 2;
-                            AdicionaTokenLexema(tokensEncontrados, token);
-                            lexemasEncontrados.add(lexema);
+                            AdicionaTokenLexema(tokensEncontrados, token, listaLexemas, lexema, listaLinhas,
+                                    numeroLinha);
                             lexema = "";
                             continue;
                         }
 
                         // Caso não ache um composto, só adiciona o simples
                         int token = arrayTokens.indexOf(lexema) + 1;
-                        AdicionaTokenLexema(tokensEncontrados, token);
-                        lexemasEncontrados.add(lexema);
+                        AdicionaTokenLexema(tokensEncontrados, token, listaLexemas, lexema, listaLinhas,
+                                    numeroLinha);
                         lexema = "";
                     } else {
                         // Aqui vai ter todas as verificações de Integer, float, string, char e literal
@@ -111,7 +110,8 @@ public class Lexico {
                             ehStringChar = true;
                             if (LexemaValidar.verificarString(lexema)) {
                                 token = LexemaValidar.verificaBuscaTokenString(arrayTokens, lexema, numeroLinha);
-                            } if (i == linha.length() - 1) {
+                            }
+                            if (i == linha.length() - 1) {
                                 token = LexemaValidar.verificaBuscaTokenString(arrayTokens, lexema, numeroLinha);
                             }
                         }
@@ -120,7 +120,8 @@ public class Lexico {
                             ehLiteral = true;
                             if (LexemaValidar.verificarLiteral(lexema)) {
                                 token = LexemaValidar.verificaBuscaTokenLiteral(arrayTokens, lexema, numeroLinha);
-                            } if (i == linha.length() - 1) {
+                            }
+                            if (i == linha.length() - 1) {
                                 token = LexemaValidar.verificaBuscaTokenLiteral(arrayTokens, lexema, numeroLinha);
                             }
                         }
@@ -152,8 +153,8 @@ public class Lexico {
 
                         if (token > 0) {
                             // Caso de tudo certo, adiciona o token
-                            AdicionaTokenLexema(tokensEncontrados, token);
-                            lexemasEncontrados.add(lexema);
+                            AdicionaTokenLexema(tokensEncontrados, token, listaLexemas, lexema, listaLinhas,
+                                    numeroLinha);
                             lexema = "";
                             ehLiteral = false;
                             ehStringChar = false;
@@ -169,12 +170,13 @@ public class Lexico {
 
             // Caso não encontre o fim do bloco de linha
             if (ehBlocoDeComentario) {
-                System.out.println("Erro léxico: Comentário de bloco está invalido pois não foi possível encontrar um fim.");
+                System.out.println(
+                        "Erro léxico: Comentário de bloco está invalido pois não foi possível encontrar um fim.");
             }
 
             // Aqui é o final, a partir daqui será continuado o Analisador Sintático
             System.out.println(tokensEncontrados);
-            System.out.println(lexemasEncontrados);
+            System.out.println(listaLexemas);
             return tokensEncontrados;
         } catch (IOException e) {
             e.printStackTrace();
@@ -182,7 +184,11 @@ public class Lexico {
         }
     }
 
-    private static void AdicionaTokenLexema(List<Integer> tokens, int token) {
-        tokens.add(token);
+    private static void AdicionaTokenLexema(List<Integer> listaTokens, int token, List<String> listaLexemas,
+            String lexema, List<Integer> listaLinhas, int numeroLinha) {
+
+        listaTokens.add(token);
+        listaLexemas.add(lexema);
+        listaLinhas.add(numeroLinha);
     }
 }

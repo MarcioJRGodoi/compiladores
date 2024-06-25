@@ -93,10 +93,11 @@ public class AnalisadorSemantico {
         String tipo = "";
         String tipoAtual;
         for (CodigoToken token : listaComparacao) {
-            if (buscaTipoToken(token) != null && tipo.isEmpty()) {
-                tipo = Objects.requireNonNull(buscaTipoToken(token)).getTokenString();
-            } else if (buscaTipoToken(token) != null) {
-                if (!Objects.requireNonNull(buscaTipoToken(token)).getTokenString().equals(tipo)) {
+            CodigoToken tipoToken = buscaTipoToken(token);
+            if (tipoToken != null && tipo.isEmpty()) {
+                tipo = Objects.requireNonNull(tipoToken).getTokenString();
+            } else if (tipoToken != null) {
+                if (!Objects.requireNonNull(tipoToken).getTokenString().equals(tipo)) {
                     throw new RuntimeException("[Erro Semantico] use apenas um tipo de variavel");
                 }
             } else {

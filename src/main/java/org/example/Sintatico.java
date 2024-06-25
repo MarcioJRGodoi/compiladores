@@ -16,14 +16,16 @@ public class Sintatico {
     private static TabelaParsing tabelaParser;
     private static TabelaProd tabelaProd;
 
-    public static void AnaliseSintatica(List<Integer> tokens) throws Exception {
+    public static void AnaliseSintatica(List<Integer> listaTokens, List<String> listaLexemas, List<Integer> listaLinhas) throws Exception {
         tabelaParser = new TabelaParsing();
         tabelaProd = new TabelaProd();
 
         Stack<Integer> pilha = SintaticoUtil.geraPilha();
 
         int valorPilha = pilha.peek();
-        int valorTerminal = tokens.get(0);
+        int valorTerminal = listaTokens.get(0);
+        String palavraLexema = listaLexemas.get(0);
+        int numeroLinha = listaLinhas.get(0);
         int contagem = 0;
 
         while (valorPilha != SIFRAO) {
@@ -39,18 +41,25 @@ public class Sintatico {
                     if (valorPilha == valorTerminal) { 
                         pilha.pop();
 
-                        if (!tokens.isEmpty() && tokens.size() > 1) {
-                            tokens = tokens.subList(1, tokens.size());
+                        if (!listaTokens.isEmpty() && listaTokens.size() > 1) {
+                            listaTokens = listaTokens.subList(1, listaTokens.size());
+                            listaLexemas = listaLexemas.subList(1, listaLexemas.size());
+                            listaLinhas = listaLinhas.subList(1, listaLinhas.size());
                         }
 
                         valorPilha = pilha.peek();
-                        if (tokens.size() != 0) {
-                            valorTerminal = tokens.get(0);
+                        if (listaTokens.size() != 0) {
+                            valorTerminal = listaTokens.get(0);
+                            palavraLexema = listaLexemas.get(0);
+                            numeroLinha = listaLinhas.get(0);
                         }
                     } else {
                         geraErro(
+                                "\n" + "ERRO!" + "\n" +
+                                "Lexema: " + palavraLexema + "\n" +
+                                "Linha do Código: " + numeroLinha + "\n" +
                                 "Não foi possível concluir a Análise Sintática pois o sistema detectou que " +
-                                        "o código enviado está inválido e necessita correção");
+                                        "o código enviado está inválido e necessita correção.");
                     }
                 } else {
                     int producao = tabelaParser.getRegra(valorPilha, valorTerminal);
@@ -73,8 +82,11 @@ public class Sintatico {
                             valorPilha = pilha.peek();
                         } else {
                             geraErro(
+                                "\n" + "ERRO!" + "\n" +
+                                "Lexema: " + palavraLexema + "\n" +
+                                "Linha do Código: " + numeroLinha + "\n" +
                                 "Não foi possível concluir a Análise Sintática pois o sistema detectou que " +
-                                        "não há produções para continuar, logo, o código enviado estando inválido");
+                                        "não há produções para continuar, logo, o código enviado está inválido e necessita correção.");
                         }
                     }
                 }
