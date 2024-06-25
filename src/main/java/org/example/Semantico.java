@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class AnalisadorSemantico {
+public class Semantico {
 
     private List<TabelaSimbolosSemantico> lista = new ArrayList<>();
     private List<CodigoToken> listaComparacao = new ArrayList<>();
